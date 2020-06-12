@@ -125,4 +125,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR]
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'home'
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
