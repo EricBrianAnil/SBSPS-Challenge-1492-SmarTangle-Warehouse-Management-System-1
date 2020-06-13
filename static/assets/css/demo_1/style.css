@@ -284,8 +284,8 @@
       .navbar.default-layout .navbar-brand-wrapper .navbar-brand:active, .navbar.default-layout .navbar-brand-wrapper .navbar-brand:focus, .navbar.default-layout .navbar-brand-wrapper .navbar-brand:hover {
         color: #424546; }
       .navbar.default-layout .navbar-brand-wrapper .navbar-brand img {
-        width: 170px;
-        max-width: 100%;
+        width: 140px;
+        max-width: 75%;
         margin: auto;
         vertical-align: middle; }
     .navbar.default-layout .navbar-brand-wrapper .brand-logo-mini {
