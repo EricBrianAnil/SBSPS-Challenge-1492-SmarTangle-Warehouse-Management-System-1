@@ -1,1 +1,0 @@
-web: gunicorn stwms_django.wsgi --log-file -
