@@ -26,12 +26,6 @@ def sign_up(request):
 def index(request):
     return render(request,'index.html')
 
-
-# class UserSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ['url', 'username', 'email', 'is_staff']
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

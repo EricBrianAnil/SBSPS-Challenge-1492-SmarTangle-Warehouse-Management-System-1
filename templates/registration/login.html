@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 <title>Login</title>
 <style id="applicationStylesheet" type="text/css">
 	.mediaViewInfo {
@@ -354,7 +355,11 @@
 	#Rectangle_8 {
 		fill: rgba(30,70,178,1);
 	}
-	.Rectangle_8 {
+    #Rectangle_8:hover{
+        fill: rgb(25, 58, 153);
+    }
+
+    .Rectangle_8 {
 		position: absolute;
 		overflow: visible;
 		width: 609px;
@@ -369,14 +374,23 @@
 		overflow: visible;
 		width: 145px;
 		white-space: nowrap;
+        vertical-align: middle;
 		text-align: center;
-		font-family: Montserrat;
+        font-family: Montserrat, sans-serif;
 		font-style: normal;
 		font-weight: bold;
 		font-size: 28px;
-		color: rgb(255, 255, 255);
-		letter-spacing: 2.01px;
+		letter-spacing: 2px;
 	}
+    button{
+        vertical-align: middle;
+		text-align: center;
+        font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 28px;
+		letter-spacing: 2px;
+    }
 </style>
 <script id="applicationScript">
 ///////////////////////////////////////
@@ -3165,13 +3179,15 @@ window.application = new Application();
 	             <input type="password" class="entertheuserid2" name="password" placeholder="Enter the Password">
 			</div>
 			<div id="Group_5">
-				<svg class="Rectangle_8">
-					<rect id="Rectangle_8" rx="10" ry="10" x="0" y="0" width="609" height="92">
-					</rect>
-				</svg>
-				<div id="SIGN_IN">
-					<button type="submit" value="Login">SIGN IN</button>
-				</div>
+                <button type="submit" value="Login">
+                    <svg class="Rectangle_8">
+                        <rect id="Rectangle_8" rx="10" ry="10" x="0" y="0" width="609" height="92">
+                        </rect>
+                    </svg>
+                    <div id="SIGN_IN">
+                        <span style="color: white">SIGN IN</span>
+                    </div>
+                </button>
 			</div>
 		</form>
 	</div>
