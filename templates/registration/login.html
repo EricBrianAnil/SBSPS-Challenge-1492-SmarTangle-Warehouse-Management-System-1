@@ -6,6 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="{% static '/assets/images/favicon.png' %}" />
 <title>Login</title>
 <style id="applicationStylesheet" type="text/css">
 	.mediaViewInfo {
@@ -354,6 +355,7 @@
 	}
 	#Rectangle_8 {
 		fill: rgba(30,70,178,1);
+        cursor:pointer;
 	}
     #Rectangle_8:hover{
         fill: rgb(25, 58, 153);
@@ -383,6 +385,29 @@
 		letter-spacing: 2px;
 	}
     button{
+        vertical-align: middle;
+		text-align: center;
+        font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 28px;
+		letter-spacing: 2px;
+    }
+    #Group_7 {
+		position: absolute;
+		width: 609px;
+		height: 92px;
+		left: 64px;
+		top: 700px;
+		overflow: visible;
+	}
+    #SIGN_UP_TEXT{
+        left: 233px;
+		top: 29px;
+		position: absolute;
+		overflow: visible;
+		width: 145px;
+		white-space: nowrap;
         vertical-align: middle;
 		text-align: center;
         font-family: Montserrat, sans-serif;
@@ -3145,7 +3170,7 @@ window.application = new Application();
 		<form method="post">>
 			{% csrf_token %}
 			<svg class="Rectangle_6">
-				<rect id="Rectangle_6" rx="10" ry="10" x="0" y="0" width="734" height="734">
+				<rect id="Rectangle_6" rx="10" ry="10" x="0" y="0" width="734" height="810">
 				</rect>
 			</svg>
 			<div id="WAREHOUSE_ADMIN_LOGIN">
@@ -3164,10 +3189,7 @@ window.application = new Application();
 					<span>User ID</span>
 				</div>
 	            <input class="entertheuserid2" name="username" placeholder="Enter the User ID">
-	            
 			</div>
-			
-    		 
 			<div id="Group_3">
 				<svg class="Rectangle_7_">
 	                <rect id="Rectangle_7_" rx="10" ry="10" x="0" y="0" width="609" height="92"></rect>
@@ -3188,7 +3210,19 @@ window.application = new Application();
                         <span style="color: white">SIGN IN</span>
                     </div>
                 </button>
-			</div>
+            </div>
+            <div id="Group_7">
+                <a href="/accounts/sign_up">
+                    <div id="SIGN_UP">
+                        <svg class="Rectangle_8">
+                            <rect id="Rectangle_8" rx="10" ry="10" x="0" y="0" width="609" height="92"></rect>
+                        </svg>
+                        <p id="SIGN_UP_TEXT" style="color: white">
+                            SIGN UP
+                        </p>
+                    </div>
+                </a>
+            </div>
 		</form>
 	</div>
 </div>
