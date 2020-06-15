@@ -1,0 +1,310 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>smarTangle</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static '/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}" >
+    <link rel="stylesheet" href="{% static '/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/vendors/iconfonts/typicons/src/font/typicons.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/vendors/css/vendor.bundle.base.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/vendors/css/vendor.bundle.base.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/vendors/css/vendor.bundle.addons.css' %}">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static '/assets/css/shared/style.css' %}">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{% static '/assets/css/demo_1/style.css' %}">
+    <!-- End Layout styles -->
+    <link rel="shortcut icon" href="{% static '/assets/images/favicon.png' %}" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+          <a class="navbar-brand brand-logo" href="index.html">
+            <img src="{% static '/assets/images/logo_title.png' %}" alt="logo" /> </a>
+          <a class="navbar-brand brand-logo-mini" href="index.html">
+            <img src="{% static '/assets/images/logo-mini.svg' %}" alt="logo" /> </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+          <ul class="navbar-nav">
+            <li class="nav-item font-weight-semibold d-none d-lg-block">Help : ericthendi@ieee.org</li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-bell-outline"></i>
+                <span class="count">7</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
+                <a class="dropdown-item py-3">
+                  <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
+                  <span class="badge badge-pill badge-primary float-right">View all</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="{% static '/assets/images/faces/face10.jpg' %}" alt="image" class="img-sm profile-pic"> </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
+                    <p class="font-weight-light small-text"> The meeting is cancelled </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="{% static '/assets/images/faces/face12.jpg' %}" alt="image" class="img-sm profile-pic"> </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
+                    <p class="font-weight-light small-text"> The meeting is cancelled </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="{% static '/assets/images/faces/face1.jpg' %}" alt="image" class="img-sm profile-pic"> </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
+                    <p class="font-weight-light small-text"> The meeting is cancelled </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="text-wrapper">
+                  <p class="profile-name">{{user.first_name}} {{user.last_name}}</p>
+                  <p class="designation">{{user.email}}</p>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item nav-category">Main Menu</li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/home">
+	                <i class="menu-icon typcn typcn-document-text"></i>
+	                <span class="menu-title">Dashboard</span>
+	              </a>
+	            </li>
+                <li class="nav-item">
+	              <a class="nav-link" href="">
+	                <i class="menu-icon typcn typcn-document-text"></i>
+	                <span class="menu-title">Stores</span>
+	              </a>
+	            </li>
+              <li class="nav-item">
+	              <a class="nav-link" href="#">
+	                <i class="menu-icon typcn typcn-document-text"></i>
+	                <span class="menu-title">Settings</span>
+	              </a>
+	            </li>
+              <li class="nav-item">
+	              <a class="nav-link" href="/accounts/logout">
+	                <i class="menu-icon typcn typcn-document-text"></i>
+	                <span class="menu-title">Sign out</span>
+	              </a>
+	            </li>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <!-- Page Title Header Starts-->
+            <div class="row page-title-header">
+              <div class="col-12">
+                <div class="page-header">
+                  <h4 class="page-title">Stores</h4>
+                  <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Page Title Header Ends-->
+            <div class="row">
+              <div class="col-md-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-6">
+                        <div class="d-flex">
+                          <div class="wrapper">
+                            <h3 class="mb-0 font-weight-semibold">3</h3>
+                            <h5 class="mb-0 font-weight-medium text-primary">Stores</h5>
+                            <p class="mb-0 text-muted">+14.00(+0.50%)</p>
+                          </div>
+                          <div class="wrapper my-auto ml-auto ml-lg-4">
+                            <canvas height="50" width="100" id="stats-line-graph-1"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                        <div class="d-flex">
+                          <div class="wrapper">
+                            <h3 class="mb-0 font-weight-semibold">8</h3>
+                            <h5 class="mb-0 font-weight-medium text-primary">Employees</h5>
+                            <p class="mb-0 text-muted">+138.97(+0.54%)</p>
+                          </div>
+                          <div class="wrapper my-auto ml-auto ml-lg-4">
+                            <canvas height="50" width="100" id="stats-line-graph-2"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                        <div class="d-flex">
+                          <div class="wrapper">
+                            <h3 class="mb-0 font-weight-semibold">180</h3>
+                            <h5 class="mb-0 font-weight-medium text-primary">Items</h5>
+                            <p class="mb-0 text-muted">+57.62(+0.76%)</p>
+                          </div>
+                          <div class="wrapper my-auto ml-auto ml-lg-4">
+                            <canvas height="50" width="100" id="stats-line-graph-3"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="row">
+                  <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title mb-4">Store 1</h4>
+                        <div>
+                            <div style="width: 100%"><iframe width="100%" height="350" src="https://maps.google.com/maps?width=100%&amp;height=350&amp;hl=en&amp;coord=8.5482706, 76.9390476&amp;q=+(Store%201)&amp;ie=UTF8&amp;t=&amp;z=17&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><br/>
+                        </div>
+                        <div class="wrapper">
+                          <div class="d-flex w-100 pt-2 mt-4">
+                            <p class="mb-0 font-weight-semibold">Items</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">40</p>
+                            </div>
+                          </div>
+                          <div class="d-flex w-100 pt-2">
+                            <p class="mb-0 font-weight-semibold">Customers</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">5</p>
+                            </div>
+                          </div>
+                          <div class="d-flex w-100 pt-2">
+                            <p class="mb-0 font-weight-semibold">Employees</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">2</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title mb-4">Store 2</h4>
+                        <div>
+                            <div style="width: 100%"><iframe width="100%" height="350" src="https://maps.google.com/maps?width=100%&amp;height=350&amp;hl=en&amp;coord=9.52832455, 76.82204147929735&amp;q=+(Store%202)&amp;ie=UTF8&amp;t=&amp;z=17&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><br/>
+                        </div>
+                        <div class="wrapper">
+                          <div class="d-flex w-100 pt-2 mt-4">
+                            <p class="mb-0 font-weight-semibold">Items</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">60</p>
+                            </div>
+                          </div>
+                          <div class="d-flex w-100 pt-2">
+                            <p class="mb-0 font-weight-semibold">Customers</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">6</p>
+                            </div>
+                          </div>
+                          <div class="d-flex w-100 pt-2">
+                            <p class="mb-0 font-weight-semibold">Employees</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">2</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title mb-4">Store 3</h4>
+                        <div>
+                            <div style="width: 100%"><iframe width="100%" height="350" src="https://maps.google.com/maps?width=100%&amp;height=350&amp;hl=en&amp;coord=12.84054,80.1531319&amp;q=+(Store%203)&amp;ie=UTF8&amp;t=&amp;z=17&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><br/>
+                        </div>
+                        <div class="wrapper">
+                          <div class="d-flex w-100 pt-2 mt-4">
+                            <p class="mb-0 font-weight-semibold">Items</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">80</p>
+                            </div>
+                          </div>
+                          <div class="d-flex w-100 pt-2">
+                            <p class="mb-0 font-weight-semibold">Customers</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">8</p>
+                            </div>
+                          </div>
+                          <div class="d-flex w-100 pt-2">
+                            <p class="mb-0 font-weight-semibold">Employees</p>
+                            <div class="wrapper ml-auto d-flex align-items-center">
+                              <p class="font-weight-semibold mb-0">4</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i>
+              </span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{% static '/assets/vendors/js/vendor.bundle.base.js' %}"></script>
+    <script src="{% static '/assets/vendors/js/vendor.bundle.addons.js' %}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="{% static '/assets/js/shared/off-canvas.js' %}"></script>
+    <script src="{% static '/assets/js/shared/misc.js' %}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="{% static '/assets/js/demo_1/dashboard.js' %}"></script>
+    <!-- End custom js for this page-->
+  </body>
+</html>

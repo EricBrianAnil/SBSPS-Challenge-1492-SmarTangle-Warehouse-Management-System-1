@@ -31,6 +31,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def stores(request):
+    return render(request, 'stores.html')
+
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
