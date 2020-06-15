@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from .forms import SignUpForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
-
+from .forms import SignUpForm
+from .models import StoreDetails
 
 # Create your views here.
+
 
 @login_required
 def home(request):
@@ -32,6 +33,7 @@ def index(request):
 
 
 def stores(request):
+
     return render(request, 'stores.html')
 
 
