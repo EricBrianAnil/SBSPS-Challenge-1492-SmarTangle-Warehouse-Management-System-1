@@ -33,8 +33,13 @@ def index(request):
 
 
 def stores(request):
+    stores = StoreDetails.objects.all()
 
     return render(request, 'stores.html')
+
+
+def store_1(request):
+    return render(request, 'Stores/store_1.html')
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -1,8 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
 class StoreDetails(models.Model):
@@ -18,6 +37,8 @@ class RawMaterials(models.Model):
     rawMaterial_name = models.CharField(unique=True, max_length=25)
     price = models.IntegerField()
     requestsFromUser = models.IntegerField()
+    href = models.CharField(max_length=50)
+
 
     class Meta:
         verbose_name_plural = "Raw Material Details"
@@ -54,6 +75,7 @@ class StoreInventory(models.Model):
     rawMaterial_id = models.ForeignKey(RawMaterials, on_delete=models.PROTECT)
     storeId = models.ForeignKey(StoreDetails, on_delete=models.PROTECT)
     unitsAvailable = models.BigIntegerField()
+    unitsSold = models.BigIntegerField()
 
     class Meta:
         verbose_name_plural = "Store Inventory"
