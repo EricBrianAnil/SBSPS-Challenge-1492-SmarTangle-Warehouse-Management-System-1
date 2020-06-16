@@ -8,9 +8,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
+    designation = models.CharField(max_length=25)
 
 
 @receiver(post_save, sender=User)
@@ -26,7 +24,9 @@ def save_user_profile(sender, instance, **kwargs):
 
 class StoreDetails(models.Model):
     store_id = models.CharField(primary_key=True, max_length=25)
+    store_name = models.CharField(max_length=25)
     storeManager = models.ForeignKey(User, on_delete=models.PROTECT)
+    place_id = models.CharField(max_length=50)
 
     class Meta:
         verbose_name_plural = "Store Details"
@@ -37,8 +37,6 @@ class RawMaterials(models.Model):
     rawMaterial_name = models.CharField(unique=True, max_length=25)
     price = models.IntegerField()
     requestsFromUser = models.IntegerField()
-    href = models.CharField(max_length=50)
-
 
     class Meta:
         verbose_name_plural = "Raw Material Details"

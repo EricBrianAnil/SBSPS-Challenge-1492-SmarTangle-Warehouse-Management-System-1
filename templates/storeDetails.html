@@ -104,7 +104,7 @@
 	              </a>
 	            </li>
                 <li class="nav-item">
-	              <a class="nav-link" href="">
+	              <a class="nav-link" href="/stores">
 	                <i class="menu-icon typcn typcn-document-text"></i>
 	                <span class="menu-title">Stores</span>
 	              </a>
@@ -131,146 +131,95 @@
             <div class="row page-title-header">
               <div class="col-12">
                 <div class="page-header">
-                  <h4 class="page-title">Stores</h4>
-                  <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
-                  </div>
+                  <h3 class="page-title">{{ store.store_name }}</h3>
                 </div>
               </div>
             </div>
             <!-- Page Title Header Ends-->
-            <div class="row">
-              <div class="col-md-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-3 col-md-6">
-                        <div class="d-flex">
-                          <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">3</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Stores</h5>
-                            <p class="mb-0 text-muted">+14.00(+0.50%)</p>
+              <div class="row">
+                  <div class="col-md-12 grid-margin">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-lg-3 col-md-6">
+                            <div class="d-flex">
+                              <div class="wrapper">
+                                <h3 class="mb-0 font-weight-semibold">32,451</h3>
+                                <h5 class="mb-0 font-weight-medium text-primary">Visits</h5>
+                                <p class="mb-0 text-muted">+14.00(+0.50%)</p>
+                              </div>
+                              <div class="wrapper my-auto ml-auto ml-lg-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas height="50" width="100" id="stats-line-graph-1" class="chartjs-render-monitor" style="display: block;"></canvas>
+                              </div>
+                            </div>
                           </div>
-                          <div class="wrapper my-auto ml-auto ml-lg-4">
-                            <canvas height="50" width="100" id="stats-line-graph-1"></canvas>
+                          <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                            <div class="d-flex">
+                              <div class="wrapper">
+                                <h3 class="mb-0 font-weight-semibold">15,236</h3>
+                                <h5 class="mb-0 font-weight-medium text-primary">Impressions</h5>
+                                <p class="mb-0 text-muted">+138.97(+0.54%)</p>
+                              </div>
+                              <div class="wrapper my-auto ml-auto ml-lg-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas height="50" width="100" id="stats-line-graph-2" class="chartjs-render-monitor" style="display: block;"></canvas>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
-                        <div class="d-flex">
-                          <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">8</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Employees</h5>
-                            <p class="mb-0 text-muted">+138.97(+0.54%)</p>
+                          <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                            <div class="d-flex">
+                              <div class="wrapper">
+                                <h3 class="mb-0 font-weight-semibold">7,688</h3>
+                                <h5 class="mb-0 font-weight-medium text-primary">Conversation</h5>
+                                <p class="mb-0 text-muted">+57.62(+0.76%)</p>
+                              </div>
+                              <div class="wrapper my-auto ml-auto ml-lg-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas height="50" width="100" id="stats-line-graph-3" class="chartjs-render-monitor" style="display: block;"></canvas>
+                              </div>
+                            </div>
                           </div>
-                          <div class="wrapper my-auto ml-auto ml-lg-4">
-                            <canvas height="50" width="100" id="stats-line-graph-2"></canvas>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
-                        <div class="d-flex">
-                          <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">180</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Items</h5>
-                            <p class="mb-0 text-muted">+57.62(+0.76%)</p>
-                          </div>
-                          <div class="wrapper my-auto ml-auto ml-lg-4">
-                            <canvas height="50" width="100" id="stats-line-graph-3"></canvas>
+                          <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                            <div class="d-flex">
+                              <div class="wrapper">
+                                <h3 class="mb-0 font-weight-semibold">1,553</h3>
+                                <h5 class="mb-0 font-weight-medium text-primary">Downloads</h5>
+                                <p class="mb-0 text-muted">+138.97(+0.54%)</p>
+                              </div>
+                              <div class="wrapper my-auto ml-auto ml-lg-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas height="50" width="100" id="stats-line-graph-4" class="chartjs-render-monitor" style="display: block;"></canvas>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
             </div>
               <div class="row">
-                  <div class="col-md-4 grid-margin stretch-card">
+                  <div class="col-md-12 grid-margin">
                     <div class="card">
                       <div class="card-body">
-                        <h4 class="card-title mb-4">Store 1</h4>
-                        <div>
-                            <div style="width: 100%"><iframe width="100%" height="350" src="https://maps.google.com/maps?width=100%&amp;height=350&amp;hl=en&amp;coord=8.5482706, 76.9390476&amp;q=+(Store%201)&amp;ie=UTF8&amp;t=&amp;z=17&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><br/>
+                        <div class="d-flex justify-content-between">
+                          <h4 class="card-title mb-0">Store Inventory</h4>
                         </div>
-                        <div class="wrapper">
-                          <div class="d-flex w-100 pt-2 mt-4">
-                            <p class="mb-0 font-weight-semibold">Items</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">40</p>
-                            </div>
-                          </div>
-                          <div class="d-flex w-100 pt-2">
-                            <p class="mb-0 font-weight-semibold">Customers</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">5</p>
-                            </div>
-                          </div>
-                          <div class="d-flex w-100 pt-2">
-                            <p class="mb-0 font-weight-semibold">Employees</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">2</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title mb-4">Store 2</h4>
-                        <div>
-                            <div style="width: 100%"><iframe width="100%" height="350" src="https://maps.google.com/maps?width=100%&amp;height=350&amp;hl=en&amp;coord=9.52832455, 76.82204147929735&amp;q=+(Store%202)&amp;ie=UTF8&amp;t=&amp;z=17&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><br/>
-                        </div>
-                        <div class="wrapper">
-                          <div class="d-flex w-100 pt-2 mt-4">
-                            <p class="mb-0 font-weight-semibold">Items</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">60</p>
-                            </div>
-                          </div>
-                          <div class="d-flex w-100 pt-2">
-                            <p class="mb-0 font-weight-semibold">Customers</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">6</p>
-                            </div>
-                          </div>
-                          <div class="d-flex w-100 pt-2">
-                            <p class="mb-0 font-weight-semibold">Employees</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">2</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title mb-4">Store 3</h4>
-                        <div>
-                            <div style="width: 100%"><iframe width="100%" height="350" src="https://maps.google.com/maps?width=100%&amp;height=350&amp;hl=en&amp;coord=12.84054,80.1531319&amp;q=+(Store%203)&amp;ie=UTF8&amp;t=&amp;z=17&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><br/>
-                        </div>
-                        <div class="wrapper">
-                          <div class="d-flex w-100 pt-2 mt-4">
-                            <p class="mb-0 font-weight-semibold">Items</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">80</p>
-                            </div>
-                          </div>
-                          <div class="d-flex w-100 pt-2">
-                            <p class="mb-0 font-weight-semibold">Customers</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">8</p>
-                            </div>
-                          </div>
-                          <div class="d-flex w-100 pt-2">
-                            <p class="mb-0 font-weight-semibold">Employees</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">4</p>
-                            </div>
-                          </div>
+                        <div class="table-responsive">
+                          <table class="table table-striped table-hover">
+                            <thead>
+                              <tr>
+                                <th>Raw Materials</th>
+                                <th>Units Available</th>
+                                <th>Units Sold</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for item in items %}
+                              <tr>
+                                <td>{{ item.rawMaterial_id.rawMaterial_name }}</td>
+                                <td>{{ item.unitsAvailable}}</td>
+                                <td>{{ item.unitsSold }}</td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
@@ -281,7 +230,7 @@
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="container-fluid clearfix">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2020 <a href="http://www.bootstrapdash.com/" target="_blank"></a>. All rights reserved.</span>
               <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i>
               </span>
             </div>

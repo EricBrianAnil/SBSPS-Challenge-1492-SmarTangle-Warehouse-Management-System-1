@@ -6,7 +6,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
 from .forms import SignUpForm
-from .models import StoreDetails
+from .models import StoreDetails, StoreInventory
 
 # Create your views here.
 
@@ -33,13 +33,18 @@ def index(request):
 
 
 def stores(request):
-    stores = StoreDetails.objects.all()
+    stores_data = StoreDetails.objects.all()
+    context = {'stores': stores_data, 'storesLen': len(stores_data)}
+    return render(request, 'stores.html', context)
 
-    return render(request, 'stores.html')
 
-
-def store_1(request):
-    return render(request, 'Stores/store_1.html')
+def store_details(request):
+    if request.method == "GET":
+        store_id = request.GET['store_id']
+        items_data = StoreInventory.objects.filter(storeId=store_id)
+        store_data = StoreDetails.objects.get(store_id=store_id)
+        context = {'items': items_data, 'store': store_data}
+        return render(request, 'storeDetails.html', context)
 
 
 class UserViewSet(viewsets.ModelViewSet):

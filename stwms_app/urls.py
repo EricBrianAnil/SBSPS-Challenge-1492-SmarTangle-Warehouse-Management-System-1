@@ -11,7 +11,7 @@ urlpatterns = [
     path('home', views.home, name="home"),
     path('accounts/sign_up/', views.sign_up, name="sign-up"),
     path('stores', views.stores, name="stores"),
-    path('store_1', views.store_1, name="store_1"),
+    path('storeDetails', views.store_details, name="storeDetails"),
 
     # REST Framework
     path('api-login', include(router.urls)),
