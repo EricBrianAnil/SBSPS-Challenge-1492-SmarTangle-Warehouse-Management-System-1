@@ -52,7 +52,7 @@ def store_details(request):
     items_data = StoreInventory.objects.filter(storeId=store_id)
     store_data = StoreDetails.objects.get(store_id=store_id)
     context = {'items': items_data, 'store': store_data}
-    if (store_data.storeManager == request.user) or request.user.username == 'admin_ibm':
+    if store_data.storeManager == request.user:
         context['shopMenu'] = True
     else:
         context['shopMenu'] = False

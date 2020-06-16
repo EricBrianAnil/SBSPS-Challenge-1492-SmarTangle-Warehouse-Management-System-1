@@ -85,3 +85,9 @@ class TransactionHistory(models.Model):
     storeId = models.ForeignKey(StoreDetails, on_delete=models.CASCADE)
     units = models.IntegerField()
     dateTime = models.DateTimeField()
+
+
+# class TravelHistory(models.Model):
+#     truck_id
+#     batch_id
+#     destStore_id
