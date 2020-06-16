@@ -6,20 +6,20 @@ from django.dispatch import receiver
 # Create your models here.
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    designation = models.CharField(max_length=25)
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     designation = models.CharField(max_length=25)
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.profile.save()
 
 
 class StoreDetails(models.Model):
@@ -77,3 +77,11 @@ class StoreInventory(models.Model):
 
     class Meta:
         verbose_name_plural = "Store Inventory"
+
+
+class TransactionHistory(models.Model):
+    transaction_id = models.BigAutoField(primary_key=True)
+    rawMaterial_id = models.ForeignKey(RawMaterials, on_delete=models.CASCADE)
+    storeId = models.ForeignKey(StoreDetails, on_delete=models.CASCADE)
+    units = models.IntegerField()
+    dateTime = models.DateTimeField()

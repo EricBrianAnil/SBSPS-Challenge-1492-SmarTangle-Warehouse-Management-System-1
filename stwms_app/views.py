@@ -39,12 +39,24 @@ def stores(request):
 
 
 def store_details(request):
-    if request.method == "GET":
+    if request.method == "POST":
+        store_id = request.POST['store_id']
+        item = StoreInventory.objects.get(rawMaterial_id = request.POST['rawMaterial_id'])
+        item_sold = int(request.POST['units'])
+        item.unitsAvailable = item.unitsAvailable - item_sold
+        item.unitsSold = item.unitsSold + item_sold
+        item.save()
+    else:
         store_id = request.GET['store_id']
-        items_data = StoreInventory.objects.filter(storeId=store_id)
-        store_data = StoreDetails.objects.get(store_id=store_id)
-        context = {'items': items_data, 'store': store_data}
-        return render(request, 'storeDetails.html', context)
+        
+    items_data = StoreInventory.objects.filter(storeId=store_id)
+    store_data = StoreDetails.objects.get(store_id=store_id)
+    context = {'items': items_data, 'store': store_data}
+    if (store_data.storeManager == request.user) or request.user.username == 'admin_ibm':
+        context['shopMenu'] = True
+    else:
+        context['shopMenu'] = False
+    return render(request, 'storeDetails.html', context)
 
 
 class UserViewSet(viewsets.ModelViewSet):
