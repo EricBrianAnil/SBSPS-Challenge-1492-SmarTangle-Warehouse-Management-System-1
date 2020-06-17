@@ -25,7 +25,7 @@ def sign_up(request):
             login(request, user)
             return render(request, 'home.html')
     context['form'] = form
-    return render(request, 'sign_up.html', context)
+    return render(request, 'registration/sign_up.html', context)
 
 
 def index(request):
