@@ -60,10 +60,17 @@ def store_details(request):
 
 
 def rawmaterial_request(request):
-    if request.method == request.POST:
-        store = StoreDetails.objects.get(store_id=request.POST['store_id'])
+    if request.method == "POST":
+        store_id = request.POST['store_id']
+        store = StoreDetails.objects.get(store_id=store_id)
+        stores_list = StoreDetails.objects.exclude(store_id=store_id)
         raw_material = RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
-        context = {'store': store, 'rawMaterial': raw_material}
+        items_data = StoreInventory.objects.exclude(storeId=store_id)
+        context = {'store': store, 'rawMaterial': raw_material, 'items': items_data, 'stores': stores_list}
+        if store.storeManager == request.user:
+            context['shopMenu'] = True
+        else:
+            context['shopMenu'] = False
         return render(request, 'rawmaterial_request.html', context)
 
 

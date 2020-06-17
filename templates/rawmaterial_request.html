@@ -1,62 +1,92 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Store Details {% endblock title %}
-{% block page-title %} Store Details {% endblock page-title %}
+{% block title %} Request {% endblock title %}
+{% block page-title %} Request Raw Materials {% endblock page-title %}
 
 {% block content %}
     {% autoescape on %}
         <div class="row">
-              <div class="col-md-12 grid-margin">
+            {% if shopMenu %}
+                <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-3 col-md-6">
-                        <div class="d-flex">
-                          <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">{{ storesLen }}</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Stores</h5>
+                    <h4 class="card-title">Sales</h4>
+                    <form class="form-sample" action="/request_sucess" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="store_id" value={{ store.store_id }}>
+                      <p class="card-description"> Shopping Menu </p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Item</label>
+                            <div class="col-sm-9">
+                              <select class="form-control" name="rawMaterial_id">
+                              {% for item in items %}
+                                <option value="{{ item.rawMaterial_id.rawMaterial_id }}"> {{ item.rawMaterial_id.rawMaterial_name }} </option>
+                              {% endfor %}
+                              </select>
+                            </div>
                           </div>
-                          <div class="wrapper my-auto ml-auto ml-lg-4">
-                            <canvas height="50" width="100" id="stats-line-graph-1"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Store</label>
+                            <div class="col-sm-9">
+                              <select class="form-control" name="d_store_id">
+                              {% for store in stores %}
+                                <option value="{{ store.store_id }}"> {{ store.store_name }} </option>
+                              {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Units</label>
+                            <div class="col-sm-9">
+                              <input class="form-control" name="units">
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <div>
+                          <button type="submit" class="btn btn-success mr-2">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            <div class="col-md-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <h4 class="card-title mb-0">Store Inventory</h4>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th>Raw Materials</th>
+                            <th>Units Available</th>
+                            <th>Store Name</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for item in items %}
+                          <tr>
+                            <td>{{ item.rawMaterial_id.rawMaterial_name }}</td>
+                            <td>{{ item.unitsAvailable}}</td>
+                            <td>{{ item.storeId.store_name }}</td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-        <div class="row">
-                  {% for store in stores %}
-                  <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                      <form action="/storeDetails" method="get">
-                        <div class="card-body">
-                            <input type="hidden" name="store_id" value="{{ store.store_id }}">
-                            <button type="submit" style="border: none; padding: 0; background: none"><h4 class="card-title mb-4">{{ store.store_name }}</h4></button>
-                        <div>
-                            <div style="width: 100%"><iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:{{ store.place_id }}&key=AIzaSyAX15HvlFNf6bkWnt80Zo8cFq-FhBTmO9g" allowfullscreen></iframe></div><br/>
-                        </div>
-                        <div class="wrapper">
-                          <div class="d-flex w-100 pt-2 mt-4">
-                            <p class="mb-0 font-weight-semibold">Store ID</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">{{ store.store_id }}</p>
-                            </div>
-                          </div>
-                          <div class="d-flex w-100 pt-2">
-                            <p class="mb-0 font-weight-semibold">Store Manager</p>
-                            <div class="wrapper ml-auto d-flex align-items-center">
-                              <p class="font-weight-semibold mb-0">{{ store.storeManager.first_name }}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      </form>
-                    </div>
-                  </div>
-                  {% endfor %}
-              </div>
+          </div>
     {% endautoescape %}
 {% endblock content %}
