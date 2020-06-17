@@ -43,7 +43,7 @@ def store_details(request):
         store_id = request.POST['store_id']
         raw_material_id = request.POST['rawMaterial_id']
         units = request.POST['rawMaterial_id']
-        item = StoreInventory.objects.get(rawMaterial_id=raw_material_id)
+        item = StoreInventory.objects.get(rawMaterial_id=raw_material_id, storeId=store_id)
         item_sold = units
         item.unitsAvailable = item.unitsAvailable - item_sold
         item.unitsSold = item.unitsSold + item_sold
