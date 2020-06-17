@@ -6,7 +6,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
 from .forms import SignUpForm
-from .models import StoreDetails, StoreInventory
+from .models import StoreDetails, StoreInventory, RawMaterials
 
 # Create your views here.
 
@@ -60,7 +60,11 @@ def store_details(request):
 
 
 def rawmaterial_request(request):
-    return render(request, 'home.html')
+    if request.method == request.POST:
+        store = StoreDetails.objects.get(store_id=request.POST['store_id'])
+        raw_material = RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
+        context = {'store': store, 'rawMaterial': raw_material}
+        return render(request, 'rawmaterial_request.html', context)
 
 
 class UserViewSet(viewsets.ModelViewSet):

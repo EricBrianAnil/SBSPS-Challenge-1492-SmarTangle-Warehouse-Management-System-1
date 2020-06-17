@@ -50,7 +50,14 @@
                             <td>{{ item.rawMaterial_id.rawMaterial_name }}</td>
                             <td>{{ item.unitsAvailable}}</td>
                             <td>{{ item.unitsSold }}</td>
-                              <td><form action="/rawmaterial_request" method="post"><button type="button" class="btn btn-dark btn-fw">Request</button></form></td>
+                            <td>
+                                <form action="/rm_request" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="rawMaterial_id" value="{{ item.rawMaterial_id.rawMaterial_id }}">
+                                    <input type="hidden" name="store_id" value="{{ store.store_id }}">
+                                    <button type="submit" class="btn btn-dark btn-fw">Request</button>
+                                </form>
+                            </td>
                           </tr>
                         {% endfor %}
                         </tbody>
