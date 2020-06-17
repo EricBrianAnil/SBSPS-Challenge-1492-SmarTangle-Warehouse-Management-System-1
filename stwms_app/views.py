@@ -41,7 +41,7 @@ def stores(request):
 def store_details(request):
     if request.method == "POST":
         store_id = request.POST['store_id']
-        item = StoreInventory.objects.get(rawMaterial_id = request.POST['rawMaterial_id'])
+        item = StoreInventory.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
         item_sold = int(request.POST['units'])
         item.unitsAvailable = item.unitsAvailable - item_sold
         item.unitsSold = item.unitsSold + item_sold
@@ -57,6 +57,10 @@ def store_details(request):
     else:
         context['shopMenu'] = False
     return render(request, 'storeDetails.html', context)
+
+
+def rawmaterial_request(request):
+    return render(request, 'home.html')
 
 
 class UserViewSet(viewsets.ModelViewSet):
