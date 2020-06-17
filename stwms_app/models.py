@@ -86,6 +86,7 @@ class TransactionHistory(models.Model):
     units = models.IntegerField()
     dateTime = models.DateTimeField(auto_now_add=True)
 
+
 class TruckDetails(models.Model):
     truck_id = models.CharField(max_length=10, primary_key=True)
     truck_owner = models.CharField(max_length=25)
