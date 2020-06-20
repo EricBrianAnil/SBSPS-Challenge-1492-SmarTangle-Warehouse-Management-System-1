@@ -6,7 +6,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
 from .forms import SignUpForm
-from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory
+from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest
 
 # InFluxDb
 from influxdb_client import InfluxDBClient, Point, WritePrecision
@@ -49,7 +49,7 @@ def index(request):
 
 
 def stores(request):
-    stores_data = StoreDetails.objects.all()
+    stores_data = StoreDetails.objects.exclude(store_id='W')
     context_stores = {'stores': stores_data, 'storesLen': len(stores_data)}
     return render(request, 'stores.html', context_stores)
 
@@ -82,7 +82,7 @@ def store_details(request):
         hashValue = result['bundle'].tail_transaction.hash
 
         transaction = TransactionHistory(
-            storeId=StoreDetails.objects.get(store_id=store_id),\
+            storeId=StoreDetails.objects.get(store_id=store_id),
             rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=raw_material_id),
             units=units,
             hash=hashValue
@@ -102,11 +102,11 @@ def store_details(request):
 
 
 def rawmaterial_request(request):
-    if request.method == "POST":
-        store_id = request.POST['store_id']
+    if request.method == "GET":
+        store_id = request.GET['store_id']
         store = StoreDetails.objects.get(store_id=store_id)
         stores_list = StoreDetails.objects.exclude(store_id=store_id)
-        raw_material = RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
+        raw_material = RawMaterials.objects.get(rawMaterial_id=request.GET['rawMaterial_id'])
         items_data = StoreInventory.objects.exclude(storeId=store_id)
         context = {'store': store, 'rawMaterial': raw_material, 'items': items_data, 'stores': stores_list}
         if store.storeManager == request.user:
@@ -114,6 +114,19 @@ def rawmaterial_request(request):
         else:
             context['shopMenu'] = False
         return render(request, 'rawmaterial_request.html', context)
+    elif request.method == "POST":
+        store_id = request.POST['store_id']
+        raw_material_id = request.POST['rawMaterial_id']
+        from_store_id = request.POST['from_store_id']
+        units = request.POST['units']
+        request = RawMaterialRequest(
+            store_id=StoreDetails.objects.get(store_id=store_id),
+            rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=raw_material_id),
+            fromStore_id=from_store_id,
+            units=units
+        )
+        request.save()
+        return render(request, 'request_success.html')
 
 
 class UserViewSet(viewsets.ModelViewSet):

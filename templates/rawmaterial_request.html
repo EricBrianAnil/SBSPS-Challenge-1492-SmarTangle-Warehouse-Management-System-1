@@ -12,7 +12,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Sales</h4>
-                    <form class="form-sample" action="/request_sucess" method="post">
+                    <form class="form-sample" action="/rm_request" method="post">
                       {% csrf_token %}
                       <input type="hidden" name="store_id" value={{ store.store_id }}>
                       <p class="card-description"> Shopping Menu </p>
@@ -33,7 +33,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Store</label>
                             <div class="col-sm-9">
-                              <select class="form-control" name="d_store_id">
+                              <select class="form-control" name="from_store_id">
                               {% for store in stores %}
                                 <option value="{{ store.store_id }}"> {{ store.store_name }} </option>
                               {% endfor %}

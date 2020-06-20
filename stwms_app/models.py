@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 # Create your models here.
 
 
@@ -106,3 +107,13 @@ class TravelHistory(models.Model):
 
     class Meta:
         verbose_name_plural = "Travel History"
+
+
+class RawMaterialRequest(models.Model):
+    store_id = models.ForeignKey(StoreDetails, on_delete=models.CASCADE)
+    rawMaterial_id = models.ForeignKey(RawMaterials, on_delete=models.CASCADE)
+    fromStore_id = models.CharField(max_length=3)
+    units = models.IntegerField()
+
+    class Meta:
+        verbose_name_plural = "Raw Materials Requests"
