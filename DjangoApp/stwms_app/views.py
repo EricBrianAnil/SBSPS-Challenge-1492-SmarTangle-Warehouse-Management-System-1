@@ -103,30 +103,33 @@ def store_details(request):
 def rawmaterial_request(request):
     if request.method == "GET":
         store_id = request.GET['store_id']
-        store = StoreDetails.objects.get(store_id=store_id)
-        stores_list = StoreDetails.objects.exclude(store_id=store_id)
-        raw_material = RawMaterials.objects.get(rawMaterial_id=request.GET['rawMaterial_id'])
-        items_data = StoreInventory.objects.exclude(storeId=store_id)
-        context = {'store': store, 'rawMaterial': raw_material, 'items': items_data, 'stores': stores_list, 'shopMenu': store.storeManager == request.user}
+        context = {
+            'store': StoreDetails.objects.get(store_id=store_id),
+            'rawMaterial': RawMaterials.objects.get(rawMaterial_id=request.GET['rawMaterial_id']),
+            'items': StoreInventory.objects.exclude(storeId=store_id),
+            'stores': StoreDetails.objects.exclude(store_id=store_id),
+            'shopMenu': StoreDetails.objects.get(store_id=store_id).storeManager == request.user,
+            'rawMaterialList': RawMaterials.objects.all()
+        }
         return render(request, 'rawmaterial_request.html', context)
     elif request.method == "POST":
-        store_id = request.POST['store_id']
-        raw_material_id = request.POST['rawMaterial_id']
-        from_store_id = request.POST['from_store_id']
-        units = request.POST['units']
         raw_material_request = RawMaterialRequest(
-            store_id=StoreDetails.objects.get(store_id=store_id),
-            rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=raw_material_id),
-            fromStore_id=StoreDetails.objects.get(store_id=from_store_id),
-            units=units
+            store_id=StoreDetails.objects.get(store_id=request.POST['store_id']),
+            rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
+            fromStore_id=StoreDetails.objects.get(store_id=request.POST['from_store_id']),
+            units=request.POST['units']
         )
         raw_material_request.save()
-        return render(request, 'request_success.html')
+        return render(request, 'request_success.html', {'requestDetails': raw_material_request})
 
 
 @login_required
 def w_manage(request):
     if request.user.username == 'admin_ibm':
+        if request.method == "POST":
+            raw_material_request = RawMaterialRequest.objects.get(request_id=request.POST['request_id'])
+
+
         context = {
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),
@@ -134,8 +137,11 @@ def w_manage(request):
             'requests': RawMaterialRequest.objects.all(),
             'inventory': StoreInventory.objects,
         }
-
         return render(request, 'warehouseManagement.html', context)
+
+
+def procurement(request):
+    return render(request, 'procurement.html')
 
 
 class UserViewSet(viewsets.ModelViewSet):

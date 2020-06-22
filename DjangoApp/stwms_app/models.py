@@ -64,6 +64,7 @@ class RawMaterialBatches(models.Model):
     rawMaterial_id = models.ForeignKey(RawMaterials, on_delete=models.PROTECT)
     units = models.IntegerField()
     supplier = models.ForeignKey(Suppliers, on_delete=models.PROTECT)
+    quality_score = models.IntegerField()
 
     class Meta:
         verbose_name_plural = "Raw Material Batches"
