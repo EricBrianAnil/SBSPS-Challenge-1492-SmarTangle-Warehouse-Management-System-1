@@ -29,6 +29,9 @@ class StoreDetails(models.Model):
     storeManager = models.ForeignKey(User, on_delete=models.PROTECT)
     place_id = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.store_name
+
     class Meta:
         verbose_name_plural = "Store Details"
 
@@ -39,16 +42,12 @@ class RawMaterials(models.Model):
     price = models.IntegerField()
     requestsFromUser = models.IntegerField()
 
+    def __str__(self):
+        return self.rawMaterial_name + ' ' + self.rawMaterial_id
+
     class Meta:
         verbose_name_plural = "Raw Material Details"
-
-
-class WarehouseInventory(models.Model):
-    rawMaterial_id = models.OneToOneField(RawMaterials, on_delete=models.PROTECT)
-    unitsAvailable = models.BigIntegerField()
-
-    class Meta:
-        verbose_name_plural = "Warehouse Inventory"
+        ordering = ['rawMaterial_id']
 
 
 class Suppliers(models.Model):
@@ -76,8 +75,12 @@ class StoreInventory(models.Model):
     unitsAvailable = models.BigIntegerField()
     unitsSold = models.BigIntegerField()
 
+    def __str__(self):
+        return self.storeId.store_id + ': ' + self.rawMaterial_id.rawMaterial_name
+
     class Meta:
-        verbose_name_plural = "Store Inventory"
+        verbose_name_plural = "Inventory"
+        ordering = ['storeId', 'rawMaterial_id']
 
 
 class TransactionHistory(models.Model):

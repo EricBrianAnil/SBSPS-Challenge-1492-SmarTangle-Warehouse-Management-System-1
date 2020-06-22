@@ -12,6 +12,7 @@ urlpatterns = [
     path('stores', views.stores, name="stores"),
     path('storeDetails', views.store_details, name="storeDetails"),
     path('rm_request', views.rawmaterial_request, name="rawMaterial_request"),
+    path('warehouse_management', views.w_manage, name='warehouse-management'),
 
     # REST Framework
     path('api-login', include(router.urls)),

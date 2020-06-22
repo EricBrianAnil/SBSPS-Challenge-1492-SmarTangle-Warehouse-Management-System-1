@@ -1,3 +1,4 @@
+from django.db.models import QuerySet
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import login
@@ -48,12 +49,14 @@ def index(request):
     return render(request, 'index.html')
 
 
+@login_required
 def stores(request):
     stores_data = StoreDetails.objects.exclude(store_id='W')
     context_stores = {'stores': stores_data, 'storesLen': len(stores_data)}
     return render(request, 'stores.html', context_stores)
 
 
+@login_required
 def store_details(request):
     if request.method == "POST":
         store_id = request.POST['store_id']
@@ -93,14 +96,11 @@ def store_details(request):
 
     items_data = StoreInventory.objects.filter(storeId=store_id)
     store_data = StoreDetails.objects.get(store_id=store_id)
-    context = {'items': items_data, 'store': store_data}
-    if store_data.storeManager == request.user:
-        context['shopMenu'] = True
-    else:
-        context['shopMenu'] = False
+    context = {'items': items_data, 'store': store_data, 'shopMenu': store_data.storeManager == request.user}
     return render(request, 'storeDetails.html', context)
 
 
+@login_required
 def rawmaterial_request(request):
     if request.method == "GET":
         store_id = request.GET['store_id']
@@ -108,11 +108,7 @@ def rawmaterial_request(request):
         stores_list = StoreDetails.objects.exclude(store_id=store_id)
         raw_material = RawMaterials.objects.get(rawMaterial_id=request.GET['rawMaterial_id'])
         items_data = StoreInventory.objects.exclude(storeId=store_id)
-        context = {'store': store, 'rawMaterial': raw_material, 'items': items_data, 'stores': stores_list}
-        if store.storeManager == request.user:
-            context['shopMenu'] = True
-        else:
-            context['shopMenu'] = False
+        context = {'store': store, 'rawMaterial': raw_material, 'items': items_data, 'stores': stores_list, 'shopMenu': store.storeManager == request.user}
         return render(request, 'rawmaterial_request.html', context)
     elif request.method == "POST":
         store_id = request.POST['store_id']
@@ -127,6 +123,19 @@ def rawmaterial_request(request):
         )
         request.save()
         return render(request, 'request_success.html')
+
+
+@login_required
+def w_manage(request):
+    if request.user.username == 'admin_ibm':
+        stores_list = StoreDetails.objects.all()
+        context = {
+            'warehouseItems': StoreInventory.objects.filter(storeId='W'),
+            'storeItems': StoreInventory.objects.exclude(storeId='W'),
+            'store': StoreDetails.objects.get(store_id='W'),
+        }
+        return render(request, 'warehouseManagement.html', context)
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
