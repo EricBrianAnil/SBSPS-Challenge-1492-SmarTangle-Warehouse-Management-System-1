@@ -113,9 +113,10 @@ class TravelHistory(models.Model):
 
 
 class RawMaterialRequest(models.Model):
-    store_id = models.ForeignKey(StoreDetails, on_delete=models.CASCADE)
+    request_id = models.AutoField(primary_key=True)
+    store_id = models.ForeignKey(StoreDetails, on_delete=models.CASCADE, related_name='requestedStore')
     rawMaterial_id = models.ForeignKey(RawMaterials, on_delete=models.CASCADE)
-    fromStore_id = models.CharField(max_length=3)
+    fromStore_id = models.ForeignKey(StoreDetails, on_delete=models.CASCADE, related_name='fromStore')
     units = models.IntegerField()
 
     class Meta:

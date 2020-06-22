@@ -1,4 +1,3 @@
-from django.db.models import QuerySet
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import login
@@ -10,7 +9,7 @@ from .forms import SignUpForm
 from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest
 
 # InFluxDb
-from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 token = "NCAxa9xp-pPyTDYnCrkKowLETS_RSKY2gsTajAh9GKDmMv9NOTQPyYa6DsuBHEMGgeMDm6mUy9qBK5bUDKuiLQ=="
@@ -115,27 +114,28 @@ def rawmaterial_request(request):
         raw_material_id = request.POST['rawMaterial_id']
         from_store_id = request.POST['from_store_id']
         units = request.POST['units']
-        request = RawMaterialRequest(
+        raw_material_request = RawMaterialRequest(
             store_id=StoreDetails.objects.get(store_id=store_id),
             rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=raw_material_id),
-            fromStore_id=from_store_id,
+            fromStore_id=StoreDetails.objects.get(store_id=from_store_id),
             units=units
         )
-        request.save()
+        raw_material_request.save()
         return render(request, 'request_success.html')
 
 
 @login_required
 def w_manage(request):
     if request.user.username == 'admin_ibm':
-        stores_list = StoreDetails.objects.all()
         context = {
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),
             'store': StoreDetails.objects.get(store_id='W'),
+            'requests': RawMaterialRequest.objects.all(),
+            'inventory': StoreInventory.objects,
         }
-        return render(request, 'warehouseManagement.html', context)
 
+        return render(request, 'warehouseManagement.html', context)
 
 
 class UserViewSet(viewsets.ModelViewSet):
