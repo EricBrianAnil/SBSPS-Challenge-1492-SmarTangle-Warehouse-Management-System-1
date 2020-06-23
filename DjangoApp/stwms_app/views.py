@@ -6,11 +6,17 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
 from .forms import SignUpForm
-from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers
+from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers, \
+    RawMaterialBatches
+import joblib
+
+# Firebase
+from firebase_admin import credentials, firestore, initialize_app
 
 # InFluxDb
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
+from iota import Iota, ProposedTransaction, Address, TryteString
 
 token = "NCAxa9xp-pPyTDYnCrkKowLETS_RSKY2gsTajAh9GKDmMv9NOTQPyYa6DsuBHEMGgeMDm6mUy9qBK5bUDKuiLQ=="
 org = "1faff460d4557f87"
@@ -19,10 +25,12 @@ client = InfluxDBClient(url="https://us-central1-1.gcp.cloud2.influxdata.com", t
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 # Hornet Tangle
-from iota import Iota, ProposedTransaction, Address, TryteString
-
 api = Iota('https://nodes.devnet.iota.org:443', testnet=True)
 address = "ZLGVEQ9JUZZWCZXLWVNTHBDX9G9KZTJP9VEERIIFHY9SIQKYBVAHIMLHXPQVE9IXFDDXNHQINXJDRPFDXNYVAPLZAW"
+
+cred = credentials.Certificate('static/files/smartangle-firebase.json')
+initialize_app(cred)
+
 
 # Create your views here.
 
@@ -74,20 +82,10 @@ def store_details(request):
         )
         write_api.write(bucket, org, data)
 
-        message = TryteString.from_unicode(data)
-        tx = ProposedTransaction(
-            address=Address(address),
-            message=message,
-            value=0
-        )
-        result = api.send_transfer(transfers=[tx])
-        hashValue = result['bundle'].tail_transaction.hash
-
         transaction = TransactionHistory(
             storeId=StoreDetails.objects.get(store_id=store_id),
             rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=raw_material_id),
-            units=units,
-            hash=hashValue
+            units=units
         )
         transaction.save()
     else:
@@ -128,8 +126,7 @@ def w_manage(request):
     if request.user.username == 'admin_ibm':
         if request.method == "POST":
             raw_material_request = RawMaterialRequest.objects.get(request_id=request.POST['request_id'])
-
-
+            # TODO: FINISH THE REQUEST COMPLETION
         context = {
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),
@@ -141,6 +138,69 @@ def w_manage(request):
 
 
 def procurement(request):
+    if request.method == "POST":
+        model = joblib.load('static/files/model.sav')
+        dict_data = {
+            'raw_material_id': RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
+            'supplier_id': Suppliers.objects.get(supplier_id=request.POST['supplier_id']),
+            'units': int(request.POST['units']),
+            'calories': float(request.POST['calories']),
+            'proteins': float(request.POST['proteins']),
+            'fat': float(request.POST['fat']),
+            'sodium': float(request.POST['sodium']),
+        }
+        dict_data['quality_score'] = model.predict([[
+            dict_data['calories'],
+            dict_data['proteins'],
+            dict_data['fat'],
+            dict_data['sodium']
+        ]])[0].round(2)
+        batch = RawMaterialBatches(
+            rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
+            supplier=Suppliers.objects.get(supplier_id=request.POST['supplier_id']),
+            units=dict_data['units'],
+            calories=dict_data['calories'],
+            sodium=dict_data['sodium'],
+            proteins=dict_data['proteins'],
+            fat=dict_data['fat'],
+            quality_score=dict_data['quality_score'],
+            hash=''
+        )
+        batch.save()
+        unique_batch_id = batch.uniqueBatch_id
+
+        data = "%d;%s;%s;%s;%s;%s;%s;%s;%s" % (
+            unique_batch_id,
+            dict_data['raw_material_id'].rawMaterial_name,
+            dict_data['supplier_id'].supplier_name,
+            dict_data['units'],
+            dict_data['quality_score'],
+            dict_data['calories'],
+            dict_data['proteins'],
+            dict_data['sodium'],
+            dict_data['fat']
+        )
+        context = dict_data
+        message = TryteString.from_unicode(data)
+        tx = ProposedTransaction(
+            address=Address(address),
+            message=message,
+            value=0
+        )
+        result = api.send_transfer(transfers=[tx])
+        dict_data['hashValue'] = result['bundle'].tail_transaction.hash
+        batch.hash = dict_data['hashValue']
+        batch.save()
+
+        dict_data['hashValue'] = str(dict_data['hashValue'])
+        dict_data['raw_material_id'] = dict_data['raw_material_id'].rawMaterial_name
+        dict_data['supplier_id'] = dict_data['supplier_id'].supplier_name
+        db = firestore.client()
+        db.collection(u'RawMaterialBatch').document(str(unique_batch_id)).set(dict_data)
+
+        dict_data['unique_id'] = unique_batch_id
+        return render(request, 'procure_success.html', context)
+
     context = {
         'rawMaterials': RawMaterials.objects.all(),
         'suppliers': Suppliers.objects.all(),

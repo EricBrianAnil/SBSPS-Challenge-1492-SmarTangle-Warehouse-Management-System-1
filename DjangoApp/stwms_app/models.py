@@ -39,15 +39,17 @@ class Suppliers(models.Model):
 
 
 class RawMaterialBatches(models.Model):
-    uniqueBatch_id = models.IntegerField(primary_key=True)
+    uniqueBatch_id = models.AutoField(primary_key=True)
     rawMaterial_id = models.ForeignKey(RawMaterials, on_delete=models.PROTECT)
     units = models.IntegerField()
     supplier = models.ForeignKey(Suppliers, on_delete=models.PROTECT)
-    quality_score = models.IntegerField()
+    quality_score = models.FloatField()
     calories = models.FloatField()
     proteins = models.FloatField()
     fat = models.FloatField()
     sodium = models.FloatField()
+    dateTime = models.DateTimeField(auto_now_add=True)
+    hash = models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural = "Raw Material Batches"
@@ -73,7 +75,6 @@ class TransactionHistory(models.Model):
     storeId = models.ForeignKey(StoreDetails, on_delete=models.CASCADE)
     units = models.IntegerField()
     dateTime = models.DateTimeField(auto_now_add=True)
-    hash = models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural = "Transaction History"
