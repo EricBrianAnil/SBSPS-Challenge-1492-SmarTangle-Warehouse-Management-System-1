@@ -156,8 +156,8 @@ def procurement(request):
             dict_data['sodium']
         ]])[0].round(2)
         batch = RawMaterialBatches(
-            rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
-            supplier=Suppliers.objects.get(supplier_id=request.POST['supplier_id']),
+            rawMaterial_id=dict_data['raw_material_id'],
+            supplier=dict_data['supplier_id'],
             units=dict_data['units'],
             calories=dict_data['calories'],
             sodium=dict_data['sodium'],
@@ -168,6 +168,13 @@ def procurement(request):
         )
         batch.save()
         unique_batch_id = batch.uniqueBatch_id
+
+        rawMaterial_update = StoreInventory.objects.get(
+            rawMaterial_id=request.POST['rawMaterial_id'],
+            storeId=StoreDetails.objects.get(store_id='W')
+        )
+        rawMaterial_update.unitsAvailable += 1000
+        rawMaterial_update.save()
 
         data = "%d;%s;%s;%s;%s;%s;%s;%s;%s" % (
             unique_batch_id,
@@ -180,7 +187,7 @@ def procurement(request):
             dict_data['sodium'],
             dict_data['fat']
         )
-        context = dict_data
+        context = dict_data.copy()
         message = TryteString.from_unicode(data)
         tx = ProposedTransaction(
             address=Address(address),
