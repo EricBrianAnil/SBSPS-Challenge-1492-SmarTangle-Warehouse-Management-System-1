@@ -6,7 +6,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
 from .forms import SignUpForm
-from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest
+from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers
 
 # InFluxDb
 from influxdb_client import InfluxDBClient
@@ -141,7 +141,11 @@ def w_manage(request):
 
 
 def procurement(request):
-    return render(request, 'procurement.html')
+    context = {
+        'rawMaterials': RawMaterials.objects.all(),
+        'suppliers': Suppliers.objects.all(),
+    }
+    return render(request, 'procurement.html', context)
 
 
 class UserViewSet(viewsets.ModelViewSet):
