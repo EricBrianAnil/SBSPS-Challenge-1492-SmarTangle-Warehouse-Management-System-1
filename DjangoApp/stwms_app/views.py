@@ -140,13 +140,13 @@ def w_manage(request):
                 )
                 fromStore.unitsAvailable -= rm_request.units
                 toStore.unitsAvailable += rm_request.units
-                fromStore.save()
-                toStore.save()
                 travel = TravelHistory(
-                    toStore=rm_request.store_id,
-                    fromStore=rm_request.fromStore_id,
+                    toStore_id=rm_request.store_id,
+                    fromStore_id=rm_request.fromStore_id,
                     truck_id=rm_request.truck_id
                 )
+                fromStore.save()
+                toStore.save()
                 travel.save()
             else:
                 rm_request.status = 'Rejected'

@@ -104,7 +104,7 @@ class RawMaterialRequest(models.Model):
     fromStore_id = models.ForeignKey(StoreDetails, on_delete=models.CASCADE, related_name='fromStore')
     units = models.IntegerField()
     status = models.CharField(max_length=10)
-    truck = models.ForeignKey(TruckDetails, blank=True, on_delete=models.PROTECT)
+    truck = models.ForeignKey(TruckDetails, blank=True, null=True, on_delete=models.PROTECT)
 
     class Meta:
         verbose_name_plural = "Raw Materials Requests"
