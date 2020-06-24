@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
 from .forms import SignUpForm
 from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers, \
-    RawMaterialBatches
+    RawMaterialBatches, TruckDetails
 import joblib
 
 # Firebase
@@ -133,7 +133,9 @@ def w_manage(request):
             'store': StoreDetails.objects.get(store_id='W'),
             'requests': RawMaterialRequest.objects.all(),
             'inventory': StoreInventory.objects,
+            'trucks': TruckDetails.objects.all()
         }
+        print(context['trucks'])
         return render(request, 'warehouseManagement.html', context)
 
 
