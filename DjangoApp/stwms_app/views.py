@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
 from .forms import SignUpForm
 from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers, \
-    RawMaterialBatches, TruckDetails
+    RawMaterialBatches, TruckDetails, TravelHistory
 import joblib
 
 # Firebase
@@ -115,7 +115,8 @@ def rawmaterial_request(request):
             store_id=StoreDetails.objects.get(store_id=request.POST['store_id']),
             rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
             fromStore_id=StoreDetails.objects.get(store_id=request.POST['from_store_id']),
-            units=request.POST['units']
+            units=request.POST['units'],
+            status='Pending'
         )
         raw_material_request.save()
         return render(request, 'request_success.html', {'requestDetails': raw_material_request})
@@ -125,8 +126,31 @@ def rawmaterial_request(request):
 def w_manage(request):
     if request.user.username == 'admin_ibm':
         if request.method == "POST":
-            raw_material_request = RawMaterialRequest.objects.get(request_id=request.POST['request_id'])
-            # TODO: FINISH THE REQUEST COMPLETION
+            rm_request = RawMaterialRequest.objects.get(request_id=request.POST['request_id'])
+            if request.POST['Action'] == 'Accepted':
+                rm_request.status = 'Accepted'
+                rm_request.truck_id = TruckDetails.objects.get(truck_id=request.POST['truck_id'])
+                fromStore = StoreInventory.objects.get(
+                    storeId=rm_request.fromStore_id, 
+                    rawMaterial_id=rm_request.rawMaterial_id
+                )
+                toStore = StoreInventory.objects.get(
+                    storeId=rm_request.store_id, 
+                    rawMaterial_id=rm_request.rawMaterial_id
+                )
+                fromStore.unitsAvailable -= rm_request.units
+                toStore.unitsAvailable += rm_request.units
+                fromStore.save()
+                toStore.save()
+                travel = TravelHistory(
+                    toStore=rm_request.store_id,
+                    fromStore=rm_request.fromStore_id,
+                    truck_id=rm_request.truck_id
+                )
+                travel.save()
+            else:
+                rm_request.status = 'Rejected'
+            rm_request.save()
         context = {
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),

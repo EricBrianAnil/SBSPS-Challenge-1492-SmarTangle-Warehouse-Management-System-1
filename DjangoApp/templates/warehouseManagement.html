@@ -113,7 +113,7 @@
                             <th>From</th>
                             <th>Raw Material</th>
                             <th>Units Requested</th>
-                            <th>Action</th>
+                            <th>Status</th>
                             <th>Transport</th>
                           </tr>
                         </thead>
@@ -124,21 +124,29 @@
                             <td>{{ itemRequest.fromStore_id.store_name }}</td>
                             <td>{{ itemRequest.rawMaterial_id.rawMaterial_name }}</td>
                             <td>{{ itemRequest.units }}</td>
-                            <td>
-                                <form id="requestForm" {# method="post" action="/warehouse_management" #}>
-                                    {% csrf_token %}
-                                    <input type="hidden" name="request_id" value="{{ itemRequest.request_id }}">
-                                    <button type="button" id="accept" onclick="myFunction()" class="btn btn-outline-success">Accept</button>
-                                    <button type="submit" name="Action" value="Rejected" class="btn btn-outline-danger">Reject</button>
-                                </form>
-                            </td>
-                            <td>
-                                <select id='truckSelect' class="form-control" name="rawMaterial_id" disabled>
-                                  {% for truck in trucks %}
-                                    <option value="{{ truck.truck_id }}"> {{ truck.truck_owner }} </option>
-                                  {% endfor %}
-                                </select>
-                            </td>
+                            {% if itemRequest.status == 'Pending' %}
+                                <td>
+                                    <form id="requestForm" {# method="post" action="/warehouse_management" #}>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="request_id" value="{{ itemRequest.request_id }}">
+                                        <button type="button" id="accept" onclick="myFunction()" class="btn btn-outline-success">Accept</button>
+                                        <button type="submit" name="Action" value="Rejected" class="btn btn-outline-danger">Reject</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <select id='truckSelect' class="form-control" name="truck_id" disabled>
+                                      {% for truck in trucks %}
+                                        <option value="{{ truck.truck_id }}"> {{ truck.truck_owner }} </option>
+                                      {% endfor %}
+                                    </select>
+                                </td>
+                            {% elif itemRequest.status == 'Accepted' %}
+                                <td><label class="badge badge-success">Completed</label></td>
+                                <td>{{ itemRequest.truck.truck_owner }}</td>
+                            {% else %}
+                                <td><label class="badge badge-danger">Rejected</label></td>
+                                <td></td>
+                            {% endif %}
                           </tr>
                         {% endfor %}
                         </tbody>
