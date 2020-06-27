@@ -153,16 +153,16 @@
               </a>
             </li>
             <li class="nav-item nav-category">Main Menu</li>
-	          <li class="nav-item">
-	              <a class="nav-link" href="/home">
-	                <i class="menu-icon typcn typcn-document-text"></i>
-	                <span class="menu-title">Dashboard</span>
-	              </a>
-	            </li>
+{#	          <li class="nav-item">#}
+{#	              <a class="nav-link" href="/home">#}
+{#	                <i class="menu-icon typcn typcn-document-text"></i>#}
+{#	                <span class="menu-title">Dashboard</span>#}
+{#	              </a>#}
+{#	            </li>#}
               <li class="nav-item">
 	              <a class="nav-link" href="/stores">
 	                <i class="menu-icon typcn typcn-document-text"></i>
-	                <span class="menu-title">Stores</span>
+	                <span class="menu-title">Dashboard</span>
 	              </a>
 	            </li>
               {% if request.user.username == 'admin_ibm' %}
@@ -170,6 +170,12 @@
 	              <a class="nav-link" href="/warehouse_management">
 	                <i class="menu-icon typcn typcn-document-text"></i>
 	                <span class="menu-title">Warehouse Management</span>
+	              </a>
+               </li>
+               <li class="nav-item">
+	              <a class="nav-link" href="/procurement">
+	                <i class="menu-icon typcn typcn-document-text"></i>
+	                <span class="menu-title">Procurement</span>
 	              </a>
 	            </li>
               {% endif %}
