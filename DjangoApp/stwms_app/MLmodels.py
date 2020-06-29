@@ -51,5 +51,5 @@ class TimeSeriesModel:
 
 
 if '__name__' == '__main__':
-    model = TimeSeriesModel('101', 'S1')
+    model = TimeSeriesModel('101', 'S1', 7)
     model.fb_prophet(plot=True)

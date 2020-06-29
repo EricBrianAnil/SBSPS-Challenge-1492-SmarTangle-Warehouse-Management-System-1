@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.models import LogEntry
 from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
@@ -165,9 +166,10 @@ def w_manage(request):
             'store': StoreDetails.objects.get(store_id='W'),
             'requests': RawMaterialRequest.objects.all(),
             'inventory': StoreInventory.objects,
-            'trucks': TruckDetails.objects.all()
+            'trucks': TruckDetails.objects.all(),
+            'logs': LogEntry.objects.all()
         }
-        print(context['trucks'])
+        context['logsLen'] = len(context['logs'])
         return render(request, 'warehouseManagement.html', context)
 
 
