@@ -103,7 +103,7 @@ def rawmaterial_request(request):
         store_id = request.GET['store_id']
         context = {
             'store': StoreDetails.objects.get(store_id=store_id),
-            'rawMaterial': RawMaterials.objects.get(rawMaterial_id=request.GET['rawMaterial_id']),
+            # 'rawMaterial': RawMaterials.objects.get(rawMaterial_id=request.GET['rawMaterial_id']),
             'items': StoreInventory.objects.exclude(storeId=store_id),
             'stores': StoreDetails.objects.exclude(store_id=store_id),
             'shopMenu': StoreDetails.objects.get(store_id=store_id).storeManager == request.user,
@@ -131,15 +131,23 @@ def w_manage(request):
                 rm_request.status = 'Accepted'
                 rm_request.truck_id = TruckDetails.objects.get(truck_id=request.POST['truck_id'])
                 fromStore = StoreInventory.objects.get(
-                    storeId=rm_request.fromStore_id, 
-                    rawMaterial_id=rm_request.rawMaterial_id
-                )
-                toStore = StoreInventory.objects.get(
-                    storeId=rm_request.store_id, 
+                    storeId=rm_request.fromStore_id,
                     rawMaterial_id=rm_request.rawMaterial_id
                 )
                 fromStore.unitsAvailable -= rm_request.units
-                toStore.unitsAvailable += rm_request.units
+                try:
+                    toStore = StoreInventory.objects.get(
+                        storeId=rm_request.store_id,
+                        rawMaterial_id=rm_request.rawMaterial_id
+                    )
+                    toStore.unitsAvailable += rm_request.units
+                except StoreInventory.DoesNotExist:
+                    toStore = StoreInventory(
+                        rawMaterial_id=rm_request.rawMaterial_id,
+                        storeId=rm_request.store_id,
+                        unitsSold=0,
+                        unitsAvailable=rm_request.units
+                    )
                 travel = TravelHistory(
                     toStore_id=rm_request.store_id,
                     fromStore_id=rm_request.fromStore_id,
@@ -199,7 +207,7 @@ def procurement(request):
             rawMaterial_id=request.POST['rawMaterial_id'],
             storeId=StoreDetails.objects.get(store_id='W')
         )
-        rawMaterial_update.unitsAvailable += 1000
+        rawMaterial_update.unitsAvailable += dict_data['units']
         rawMaterial_update.save()
 
         data = "%d;%s;%s;%s;%s;%s;%s;%s;%s" % (
