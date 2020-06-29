@@ -2,5 +2,5 @@
 
 ## Screens
 
-![Home](https://github.com/rahulsunil2/smarTangle/blob/master/DjangApp/static/index.png)
-![Stores](https://github.com/rahulsunil2/smarTangle/blob/master/DjangApp/static/stores.png)
+![Home](https://github.com/rahulsunil2/smarTangle/blob/master/DjangoApp/static/index.png)
+![Stores](https://github.com/rahulsunil2/smarTangle/blob/master/DjangoApp/static/stores.png)
