@@ -5,11 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.models import LogEntry
 from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
+import joblib
 from .serializers import UserSerializer
 from .forms import SignUpForm
 from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers, \
     RawMaterialBatches, TruckDetails, TravelHistory
-import joblib
+from .MLmodels import TimeSeriesModel as tsModel
 
 # Firebase
 from firebase_admin import credentials, firestore, initialize_app
@@ -94,7 +95,13 @@ def store_details(request):
 
     items_data = StoreInventory.objects.filter(storeId=store_id)
     store_data = StoreDetails.objects.get(store_id=store_id)
-    context = {'items': items_data, 'store': store_data, 'shopMenu': store_data.storeManager == request.user}
+    itemsList = [i.rawMaterial_id.rawMaterial_name for i in items_data]
+    context = {
+        'items': items_data,
+        'store': store_data,
+        'shopMenu': store_data.storeManager == request.user,
+        'itemsList': itemsList
+    }
     return render(request, 'storeDetails.html', context)
 
 
@@ -173,6 +180,7 @@ def w_manage(request):
         return render(request, 'warehouseManagement.html', context)
 
 
+@login_required
 def procurement(request):
     if request.method == "POST":
         model = joblib.load('static/files/model.sav')
@@ -249,6 +257,32 @@ def procurement(request):
         'suppliers': Suppliers.objects.all(),
     }
     return render(request, 'procurement.html', context)
+
+
+@login_required
+def forecast(request):
+    context = {
+        'rawMaterials': RawMaterials.objects.all(),
+        'post': False
+    }
+    if request.method == "POST":
+        context['post'] = True
+        context['forecast'] = {}
+        rawMaterial = RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
+        forecastPeriod = int(request.POST['forecastPeriod'])
+        storesList = StoreDetails.objects.filter(store_id='S1')
+        for store in storesList:
+            model = tsModel(rawMaterial.rawMaterial_id, store.store_id, forecastPeriod)
+            partForecast, fullForecast, yhat = model.fb_prophet()
+            context['forecast'][store] = {
+                'partforecast': partForecast,
+                'fullForecast': fullForecast,
+                'yhat': yhat
+            }
+            print(context['forecast'].items)
+        # print(context)
+
+    return render(request, 'forecastDetails.html', context)
 
 
 class UserViewSet(viewsets.ModelViewSet):

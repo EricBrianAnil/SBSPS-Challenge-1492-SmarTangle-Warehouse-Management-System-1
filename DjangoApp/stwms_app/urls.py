@@ -14,6 +14,7 @@ urlpatterns = [
     path('rm_request', views.rawmaterial_request, name="rawMaterial_request"),
     path('warehouse_management', views.w_manage, name='warehouse-management'),
     path('procurement', views.procurement, name='procurement'),
+    path('forecast', views.forecast, name="forecast"),
 
     # REST Framework
     path('api-login', include(router.urls)),
