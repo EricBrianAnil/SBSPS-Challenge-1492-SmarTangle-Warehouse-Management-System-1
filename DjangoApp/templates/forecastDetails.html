@@ -6,6 +6,121 @@
     {% autoescape on %}
         {% if post %}
             <div class="row">
+                <div class="col-md-12 grid-margin">
+                <div class="card">
+                  <div class="p-4 border-bottom bg-light">
+                    <h4 class="card-title mb-0">Store Forecast</h4>
+                  </div>
+                      <div class="card-body">
+                          <div class="chartjs-size-monitor">
+                              </div>
+                              </div>
+                          </div>
+                        <canvas id="sales-forecast" height="508" style="display: block; width: 1526px; height: 508px;" width="1526" class="chartjs-render-monitor"></canvas>
+                        <script>
+                            var dataset = {}
+                            {% for key, value in forecast.items %}
+                                dataset[{{ key }}] = {}
+                                {% for i in value.partforecast.yhat.values %}
+                            {% endfor %}
+                            var chartData = {
+                              labels: {{ labels }},
+                              datasets: [
+                                  {% for key, value in forecast.items %}
+                                      {
+                                        type: 'line',
+                                        label: {{ key.store_name }},
+                                        data: {{ value.partforecast.yhat.values }},
+                                        backgroundColor: '#ffffff',
+                                        borderColor: '#000000',
+                                        borderWidth: 3,
+                                        fill: false,
+                                      }
+                                  {% endfor %}
+                              ]
+                            };
+                            var config = {
+                              type: 'bar',
+                              data: chartData,
+                              options: {
+                                responsive: true,
+                                title: {
+                                  display: true,
+                                  text: 'Sales Forecast'
+                                },
+                                scales: {
+                                  xAxes: [{
+                                    display: true,
+                                    ticks: {
+                                      fontColor: '#212229',
+                                      stepSize: 50,
+                                      min: 0,
+                                      max: 150,
+                                      autoSkip: true,
+                                      autoSkipPadding: 15,
+                                      maxRotation: 0,
+                                      maxTicksLimit: 10
+                                    },
+                                    gridLines: {
+                                      display: false,
+                                      drawBorder: false,
+                                      color: 'transparent',
+                                      zeroLineColor: '#eeeeee'
+                                    }
+                                  }],
+                                  yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                      display: true,
+                                      labelString: 'Units',
+                                      fontSize: 12,
+                                      lineHeight: 2
+                                    },
+                                    ticks: {
+                                      fontColor: '#212229',
+                                      display: true,
+                                      autoSkip: false,
+                                      maxRotation: 0,
+                                      stepSize: 20,
+                                      min: 0,
+                                      max: 100
+                                    },
+                                    gridLines: {
+                                      drawBorder: false
+                                    }
+                                  }]
+                                },
+                                legend: {
+                                  display: false
+                                },
+                                legendCallback: function (chart) {
+                                  var text = [];
+                                  text.push('<div class="chartjs-legend d-flex justify-content-center mt-4"><ul>');
+                                  for (var i = 0; i < chart.data.datasets.length; i++) {
+                                    console.log(chart.data.datasets[i]); // see what's inside the obj.
+                                    text.push('<li>');
+                                    text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+                                    text.push(chart.data.datasets[i].label);
+                                    text.push('</li>');
+                                  }
+                                  text.push('</ul></div>');
+                                  return text.join("");
+                                }
+                              }
+                            }
+
+                            window.onload = function() {
+                              var ctx = document.getElementById('sales-forecast').getContext('2d');
+                              window.myPie = new Chart(ctx, config);
+                            };
+
+                          </script>
+                        <div class="mr-5" id="mixed-chart-legend"><div class="chartjs-legend d-flex justify-content-center mt-4">
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="row">
                 {% for key, value in forecast.items %}
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">

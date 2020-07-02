@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.models import LogEntry
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, filters
 from rest_framework.permissions import AllowAny
 import joblib
-from .serializers import UserSerializer
+from .serializers import UserSerializer, MaterialAvailability
 from .forms import SignUpForm
 from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers, \
     RawMaterialBatches, TruckDetails, TravelHistory
@@ -31,7 +31,10 @@ api = Iota('https://nodes.devnet.iota.org:443', testnet=True)
 address = "ZLGVEQ9JUZZWCZXLWVNTHBDX9G9KZTJP9VEERIIFHY9SIQKYBVAHIMLHXPQVE9IXFDDXNHQINXJDRPFDXNYVAPLZAW"
 
 cred = credentials.Certificate('static/files/smartangle-firebase.json')
-initialize_app(cred)
+try:
+    initialize_app(cred)
+except ValueError:
+    pass
 
 
 # Create your views here.
@@ -275,14 +278,26 @@ def forecast(request):
             model = tsModel(rawMaterial.rawMaterial_id, store.store_id, forecastPeriod)
             partForecast, fullForecast, yhat = model.fb_prophet()
             context['forecast'][store] = {
-                'partforecast': partForecast,
+                'partforecast': partForecast.drop(
+                    ['additive_terms', 'additive_terms_lower', 'additive_terms_upper', 'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'],
+                    axis=1
+                ),
                 'fullForecast': fullForecast,
                 'yhat': yhat
             }
-            print(context['forecast'].items)
-        # print(context)
-
+        try:
+            context['labels'] = partForecast.ds.values
+        except NameError:
+            pass
+        print(context['labels'])
     return render(request, 'forecastDetails.html', context)
+
+
+class CheckAvailability(generics.ListCreateAPIView):
+    search_fields = ['rawMaterial_id__rawMaterial_name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = StoreInventory.objects.exclude(storeId='W')
+    serializer_class = MaterialAvailability
 
 
 class UserViewSet(viewsets.ModelViewSet):
