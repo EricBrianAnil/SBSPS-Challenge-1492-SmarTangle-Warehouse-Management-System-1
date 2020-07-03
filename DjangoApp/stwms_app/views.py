@@ -78,20 +78,20 @@ def store_details(request):
         item_sold = units
         item.unitsAvailable = item.unitsAvailable - item_sold
         item.unitsSold = item.unitsSold + item_sold
-        item.save()
 
         data = "%s,store=%s units=%s" % (
             RawMaterials.objects.get(rawMaterial_id=raw_material_id).rawMaterial_name,
             store_id,
             str(units)
         )
-        write_api.write(bucket, org, data)
 
         transaction = TransactionHistory(
             storeId=StoreDetails.objects.get(store_id=store_id),
             rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=raw_material_id),
             units=units
         )
+        write_api.write(bucket, org, data)
+        item.save()
         transaction.save()
     else:
         store_id = request.GET['store_id']
@@ -273,14 +273,18 @@ def forecast(request):
         context['forecast'] = {}
         rawMaterial = RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
         forecastPeriod = int(request.POST['forecastPeriod'])
-        storesList = StoreDetails.objects.filter(store_id='S1')
+        storesList = StoreDetails.objects.exclude(store_id='W')
         for store in storesList:
             model = tsModel(rawMaterial.rawMaterial_id, store.store_id, forecastPeriod)
+            if len(TransactionHistory.objects.filter(storeId=store, rawMaterial_id=rawMaterial)) < 2:
+                continue
             partForecast, fullForecast, yhat = model.fb_prophet()
             context['forecast'][store] = {
                 'partforecast': partForecast.drop(
-                    ['additive_terms', 'additive_terms_lower', 'additive_terms_upper', 'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'],
-                    axis=1
+                    [
+                        'additive_terms', 'additive_terms_lower', 'additive_terms_upper',
+                        'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'
+                    ], axis=1
                 ),
                 'fullForecast': fullForecast,
                 'yhat': yhat

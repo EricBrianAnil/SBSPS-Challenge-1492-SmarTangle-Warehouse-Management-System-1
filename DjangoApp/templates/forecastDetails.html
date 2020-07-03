@@ -18,6 +18,10 @@
                     </div>
 
                         <script>
+                            var labels = [];
+                            {% for label in labels %}
+                                labels.push('{{ label }}')
+                            {% endfor %}
                             var datasetData = new Object();
                             {% for key, value in forecast.items %}
                                 datasetData.{{ key.store_id }} = new Array();
@@ -26,8 +30,9 @@
                                 {% endfor %}
                             {% endfor %}
                             console.log(datasetData['S1']);
+                            var i = 0;
                             var chartData = {
-                              labels: ['a', 'b', 'c', 'd', 'e']{# {{ labels }} #},
+                              labels: labels,
                               datasets: [
                                   {% for key, value in forecast.items %}
                                       {
@@ -35,10 +40,10 @@
                                         label: '{{ key.store_name }}',
                                         data: datasetData['{{ key.store_id }}'],
                                         backgroundColor: '#ffffff',
-                                        borderColor: '#000000',
+                                        borderColor: ChartColor[i++],
                                         borderWidth: 3,
                                         fill: false,
-                                      }
+                                      },
                                   {% endfor %}
                               ]
                             };
@@ -62,7 +67,8 @@
                                       autoSkip: true,
                                       autoSkipPadding: 15,
                                       maxRotation: 0,
-                                      maxTicksLimit: 10
+                                      maxTicksLimit: 10,
+                                      reverse: false
                                     },
                                     gridLines: {
                                       display: false,
