@@ -293,7 +293,6 @@ def forecast(request):
             context['labels'] = partForecast.ds.values
         except NameError:
             pass
-        print(context['labels'])
     return render(request, 'forecastDetails.html', context)
 
 
