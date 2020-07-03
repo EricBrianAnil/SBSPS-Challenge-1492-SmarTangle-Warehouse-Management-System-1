@@ -7,30 +7,33 @@
         {% if post %}
             <div class="row">
                 <div class="col-md-12 grid-margin">
-                <div class="card">
-                  <div class="p-4 border-bottom bg-light">
-                    <h4 class="card-title mb-0">Store Forecast</h4>
-                  </div>
-                      <div class="card-body">
-                          <div class="chartjs-size-monitor">
-                              </div>
-                              </div>
-                          </div>
-                        <canvas id="sales-forecast" height="508" style="display: block; width: 1526px; height: 508px;" width="1526" class="chartjs-render-monitor"></canvas>
+                    <div class="card">
+                        <div class="p-4 border-bottom bg-light">
+                            <h4 class="card-title mb-0">Store Forecast</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesforecast" height="508" style="display: block; width: 1526px; height: 508px;" width="1526" class="chartjs-render-monitor"></canvas>
+                            <div class="mr-5" id="mixed-chart-legend"><div class="chartjs-legend d-flex justify-content-center mt-4">
+                        </div>
+                    </div>
+
                         <script>
-                            var dataset = {}
+                            var datasetData = new Object();
                             {% for key, value in forecast.items %}
-                                dataset[{{ key }}] = {}
+                                datasetData.{{ key.store_id }} = new Array();
                                 {% for i in value.partforecast.yhat.values %}
+                                    datasetData.{{ key.store_id }}.push({{ i }});
+                                {% endfor %}
                             {% endfor %}
+                            console.log(datasetData['S1']);
                             var chartData = {
-                              labels: {{ labels }},
+                              labels: ['a', 'b', 'c', 'd', 'e']{# {{ labels }} #},
                               datasets: [
                                   {% for key, value in forecast.items %}
                                       {
                                         type: 'line',
-                                        label: {{ key.store_name }},
-                                        data: {{ value.partforecast.yhat.values }},
+                                        label: '{{ key.store_name }}',
+                                        data: datasetData['{{ key.store_id }}'],
                                         backgroundColor: '#ffffff',
                                         borderColor: '#000000',
                                         borderWidth: 3,
@@ -81,9 +84,6 @@
                                       display: true,
                                       autoSkip: false,
                                       maxRotation: 0,
-                                      stepSize: 20,
-                                      min: 0,
-                                      max: 100
                                     },
                                     gridLines: {
                                       drawBorder: false
@@ -110,12 +110,12 @@
                             }
 
                             window.onload = function() {
-                              var ctx = document.getElementById('sales-forecast').getContext('2d');
-                              window.myPie = new Chart(ctx, config);
+                              var ctx = document.getElementById('salesforecast').getContext('2d');
+                              lineChart = new Chart(ctx, config);
+                              document.getElementById('mixed-chart-legend').innerHTML = lineChart.generateLegend();
                             };
 
                           </script>
-                        <div class="mr-5" id="mixed-chart-legend"><div class="chartjs-legend d-flex justify-content-center mt-4">
                       </div>
                     </div>
                   </div>
