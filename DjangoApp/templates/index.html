@@ -4,9 +4,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="shortcut icon" href="{% static '/assets/images/favicon.ico' %}" />
+<link rel="shortcut icon" href="{% static '/assets/images/favicon.png' %}" />
 <title>smarTangle</title>
 <style id="applicationStylesheet" type="text/css">
 	
@@ -28,7 +28,7 @@
 	
 	#logo {
 		position: fixed;
-		left: 32%;
+		left: 30%;
 		top: 6%;
 		overflow: visible;
 	}
@@ -126,9 +126,9 @@
 	#hugo-expense-tracking {
 		position: fixed;
 		width: 814px;
-		height: 599px;
-		left: 950px;
-		top: 230px;
+        margin-left: -580px;
+        margin-top: 100px;
+  
 		overflow: hidden;
 	}
 	#Warehouse_Administrator {
@@ -165,11 +165,11 @@
 	}
 	#Administration_Dashboard {
 		filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.161));
-		left: 310px;
-		top: 190px;
 		position: fixed;
 		overflow: visible;
-		width: 575px;
+		width: 0px;
+        margin-top: 140px;
+        margin-left: -40px;
 		white-space: nowrap;
 		text-align: center;
 		font-family: Montserrat;
@@ -205,8 +205,10 @@
 		position: fixed;
 		width: 423px;
 		height: 203px;
-		left: 1429px;
-		top: 10%;
+        margin-top:  100px;
+        margin-left:  1500px;
+        margin-right: auto 0px;
+        margin-bottom: auto 20px;
 		overflow: visible;
 	}
 	#Rectangle_5 {
@@ -215,10 +217,7 @@
 	.Rectangle_5 {
 		position: absolute;
 		overflow: visible;
-		width: 423px;
-		height: 154px;
-		left: -400px;
-		top: 0px;
+	    margin-left:-400px;
 	}
 	#Polygon_1 {
 		fill: rgba(255,255,255,1);
@@ -234,14 +233,14 @@
 		top: 0px;
 	}
 	#Need_assistance_Send_your_quer {
-		left: 1080px;
-		top: 100px;
 		position: fixed;
 		overflow: visible;
 		width: 321px;
+        margin-top: 20px;
+        margin-left: -350px;
 		white-space: nowrap;
 		text-align: center;
-		font-family: Montserrat;
+		font-family: Product Sans;
 		font-style: normal;
 		font-weight: bold;
 		font-size: 28px;
@@ -258,7 +257,7 @@
 		<div id="smar">
 			<span>smar</span>
 		</div>
-    <div id="Administration_Dashboard">
+        <div id="Administration_Dashboard">
 		<span>Administration Dashboard</span>
 	</div>
 		<svg class="Icon_awesome-shopping-bag" viewBox="0 0 56.359 64.41">
@@ -276,12 +275,11 @@
         <svg class="Icon_awesome-warehouse" viewBox="-120 -30 286 168.8">
 		<path id="Icon_awesome-warehouse" d="M 119.1151504516602 83.18739318847656 L 32.23672103881836 83.18739318847656 C 31.19682693481445 83.18739318847656 30.34600257873535 84.03821563720703 30.34600257873535 85.07810974121094 L 30.3223705291748 96.42241668701172 C 30.3223705291748 97.46231079101563 31.17319297790527 98.31312561035156 32.21308517456055 98.31312561035156 L 119.1151504516602 98.31312561035156 C 120.1550445556641 98.31312561035156 121.0058746337891 97.46231079101563 121.0058746337891 96.42241668701172 L 121.0058746337891 85.07810974121094 C 121.0058746337891 84.03821563720703 120.1550445556641 83.18739318847656 119.1151504516602 83.18739318847656 Z M 119.1151504516602 105.8759994506836 L 32.16582107543945 105.8759994506836 C 31.12592697143555 105.8759994506836 30.27510261535645 106.7268142700195 30.27510261535645 107.766716003418 L 30.25146865844727 119.1110153198242 C 30.25146865844727 120.1509094238281 31.10229301452637 121.0017395019531 32.14218521118164 121.0017395019531 L 119.1151504516602 121.0017395019531 C 120.1550445556641 121.0017395019531 121.0058746337891 120.1509094238281 121.0058746337891 119.1110153198242 L 121.0058746337891 107.766716003418 C 121.0058746337891 106.7268142700195 120.1550445556641 105.8759994506836 119.1151504516602 105.8759994506836 Z M 119.1151504516602 60.49879455566406 L 32.28398895263672 60.49879455566406 C 31.24409675598145 60.49879455566406 30.39327239990234 61.34961318969727 30.39327239990234 62.38951110839844 L 30.36963653564453 73.73381042480469 C 30.36963653564453 74.77370452880859 31.22046089172363 75.62452697753906 32.26035308837891 75.62452697753906 L 119.1151504516602 75.62452697753906 C 120.1550445556641 75.62452697753906 121.0058746337891 74.77370452880859 121.0058746337891 73.73381042480469 L 121.0058746337891 62.38951110839844 C 121.0058746337891 61.34961318969727 120.1550445556641 60.49879455566406 119.1151504516602 60.49879455566406 Z M 144.2853240966797 27.64759063720703 L 79.97732543945313 0.8703154325485229 C 77.18569183349609 -0.2877674698829651 74.04803466796875 -0.2877666652202606 71.25639343261719 0.8703159689903259 L 6.972018241882324 27.64759063720703 C 2.765173196792603 29.42013740539551 0 33.53244400024414 0 38.117431640625 L 0 119.1110153198242 C 0 120.1509094238281 0.8508226275444031 121.0017395019531 1.890716791152954 121.0017395019531 L 20.79788398742676 121.0017395019531 C 21.83777809143066 121.0017395019531 22.68860244750977 120.1509094238281 22.68860244750977 119.1110153198242 L 22.68860244750977 60.49879455566406 C 22.68860244750977 56.33921813964844 26.13916015625 52.9359245300293 30.39327239990234 52.9359245300293 L 120.8640670776367 52.9359245300293 C 125.1181793212891 52.9359245300293 128.5687408447266 56.33921813964844 128.5687408447266 60.49879455566406 L 128.5687408447266 119.1110153198242 C 128.5687408447266 120.1509094238281 129.4195709228516 121.0017395019531 130.4594573974609 121.0017395019531 L 149.3666229248047 121.0017395019531 C 150.4065246582031 121.0017395019531 151.2573394775391 120.1509094238281 151.2573394775391 119.1110153198242 L 151.2573394775391 38.117431640625 C 151.2573394775391 33.53244400024414 148.4921722412109 29.42013740539551 144.2853240966797 27.64759063720703 Z">
 		</path>
-		</svg>
-        	<div id="Warehouse_Administrator">
-				<span>Warehouse<br/>Administrator</span>
-			</div>
-    	</svg>  
-	</a>
+	</svg>
+        <div id="Warehouse_Administrator">
+		<span>Warehouse<br/>Administrator</span>
+	</div>
+        </svg>  </a>
     
     
     <a href="{% url 'home' %}">
@@ -301,7 +299,7 @@
 	</div>
         </svg> </a>
         
-    <img id="hugo-expense-tracking" src={% static 'illlustration.png' %}>
+   
         
 	<div id="Group_1">
 		<svg class="Rectangle_5">
@@ -312,10 +310,11 @@
 			<path id="Polygon_1" d="M 36 0 L 72 87 L 0 87 Z">
 			</path>
 		</svg>
-	</div>
+	
 	<div id="Need_assistance_Send_your_quer">
 		<span>Need assistance?<br/>Send your queries to </span><br><span style="color:rgba(250,71,90,1);">help@smartangle.org</span>
 	</div>
-
+         <img id="hugo-expense-tracking" src={% static 'illlustration.png' %}>
+</div>
 </body>
 </html>

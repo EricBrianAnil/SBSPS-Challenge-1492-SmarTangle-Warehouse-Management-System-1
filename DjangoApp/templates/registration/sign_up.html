@@ -1,626 +1,663 @@
-{%  load static %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="shortcut icon" href="{% static '/assets/images/favicon.ico' %}" />
-<title>Signup</title>
-<style id="applicationStylesheet" type="text/css">
-    
-    body {
-		background-image: url({% static 'Background.png' %});
-        background-repeat: no-repeat;
-	  	background-attachment: fixed;  
-	  	background-size:cover;
-	}
-	
-	
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-		border: none;
-	}
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+    <link rel="shortcut icon" href="{% static '/assets/images/favicon.ico' %}"/>
+    <title>Signup</title>
+    <style id="applicationStylesheet" type="text/css">
+
+        body {
+            background-image: url({% static 'Background.png' %});
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
 
 
-	#logo {
-		position: fixed;
-		width: 226px;
-		height: 128.5px;
-		left: 135px;
-		top: 90px;
-		overflow: visible;
-	}
-	#Tangle_ {
-		left: 0px;
-		top: 57.5px;
-		position: absolute;
-		overflow: visible;
-		width: 223px;
-		white-space: nowrap;
-		text-align: left;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 58px;
-		color: rgba(255,255,255,1);
-	}
-	#smar {
-		left: 84px;
-		top: 12.5px;
-		position: absolute;
-		overflow: visible;
-		width: 143px;
-		white-space: nowrap;
-		text-align: left;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 54px;
-		color: rgba(255,255,255,1);
-	}
-	#Icon_awesome-shopping-bag {
-		fill: rgba(255,255,255,1);
-	}
-	.Icon_awesome-shopping-bag {
-		overflow: visible;
-		position: absolute;
-		width: 56.359px;
-		height: 64.41px;
-		left: 13.56px;
-		top: 0px;
-		transform: matrix(1,0,0,1,0,0);
-	}
-	
-	#Administration_Dashboard {
-        filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.161));
-		left: 855px;
-		top: 40px;
-		position: absolute;
-		overflow: visible;
-		width: 561px;
-		white-space: nowrap;
-		text-align: center;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 30px;
-		color: rgba(255,255,255,1);
-		letter-spacing: 2.31px;
-	}
-	#Group_4 {
-		position: absolute;
-		width: 494px;
-		height: 446px;
-		left: 135px;
-		top: 317px;
-		overflow: visible;
-	}
-		#Rectangle_3 {
-		fill: rgba(22,66,152,1);
-    
-	}
-	.Rectangle_3 {
-		filter: drop-shadow(0px 6px 20px rgba(18, 60, 118, 1));
-		position: fixed;
-		overflow: visible;
-        transform: scale(1);
-        transition-duration: 0.3s ;
-		left: 124px;
-		top: 317px;
-	}
-   
-    
-	#Warehouse_Administrator {
-		left: 173px;
-		top: 530px;
-		position: fixed;
-		overflow: visible;
-		width: 298px;
-		white-space: nowrap;
-		text-align: center;
-		font-family: Montserrat;
-		font-style: italic;
-		font-weight: normal;
-		font-size: 26px;
-		color: rgba(255,255,255,1);
-		letter-spacing: 2.31px;
-		text-transform: uppercase;
-	}
-	#Icon_awesome-warehouse {
-		fill: rgba(255,255,255,1);
-	}
-	.Icon_awesome-warehouse {
-		overflow: visible;
-		position: absolute;
-		width: 151.257px;
-		height: 121px;
-		left: 176px;
-		top: 102px;
-		transform: matrix(1,0,0,1,0,0);
-	}
-	#Group_6 {
-		position: absolute;
-		width: 734px;
-		height: 734px;
-		left: 918px;
-		top: 219px;
-		overflow: visible;
-	}
-	#Rectangle_6 {
-		fill: rgba(255,255,255,1);
-	}
-	.Rectangle_6 {
-		filter: drop-shadow(0px 5px 20px rgba(0, 0, 0, 0.251));
-		position: absolute;
-		overflow: visible;
-		left: -120px;
-		top: -120px;
-	}
-	#WAREHOUSE_ADMIN_SIGNUP {
-		left: -10px;
-		top: -86px;
-		position: absolute;
-		overflow: visible;
-		width: 455px;
-		white-space: nowrap;
-		text-align: center;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 28px;
-		color: rgba(16,63,133,1);
-		letter-spacing: 0.8px;
-	}
-	#Group_2 {
-		position: absolute;
-		width: 609px;
-		height: 147px;
-		left: -97px;
-		top: -20px;
-		overflow: visible;
-	}
-    #Group_222 {
-		position: absolute;
-		width: 0px;
-		height: 147px;
-		left: -77px;
-		top: -20px;
-		overflow: visible;
-	}
-    	#Group_us {
-		position: absolute;
-		width: 609px;
-		height: 147px;
-		left: -97px;
-		top: 240px;
-		overflow: visible;
-	}
-    #Group_pas {
-		position: absolute;
-		width: 0px;
-		height: 147px;
-		left: -77px;
-		top: 240px;
-		overflow: visible;
-	}
-	#Rectangle_7 {
-		fill: rgba(240,242,247,1);
-	}
-    #Rectangle_777 {
-		fill: rgba(240,242,247,1);
-	}
-	.Rectangle_7 {
-		position: absolute;
-		overflow: visible;
-		width: 609px;
-		height: 92px;
-		left: 0px;
-		top: 55px;
-	}
-    .Rectangle_777 {
-		position: absolute;
-		overflow: visible;
-		width: 300px;
-		height: 92px;
-		left: 310px;
-		top: 55px;
-	}
-	#User_ID {
-		left: 8.5px;
-		top: 20px;
-		position: absolute;
-		overflow: visible;
-		width: 121px;
-		white-space: nowrap;
-		text-align: center;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 28px;
-		color: rgba(16,63,133,1);
-		letter-spacing: 0.8px;
-	}
-    #User_FN {
-		left: 8.5px;
-		top: 20px;
-		position: absolute;
-		overflow: visible;
-		width: 121px;
-		white-space: nowrap;
-		text-align: left;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 20px;
-		color: rgba(16,63,133,1);
-		letter-spacing: 0.8px;
-	}
-    #User_LN {
-		left: 318.5px;
-		top: 20px;
-		position: absolute;
-		overflow: visible;
-		width: 121px;
-		white-space: nowrap;
-		text-align: left;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 20px;
-		color: rgba(16,63,133,1);
-		letter-spacing: 0.8px;
-	}
-    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+        }
+
+
+        #logo {
+            position: fixed;
+            width: 226px;
+            height: 128.5px;
+            left: 135px;
+            top: 90px;
+            overflow: visible;
+        }
+
+        #Tangle_ {
+            left: 0px;
+            top: 57.5px;
+            position: absolute;
+            overflow: visible;
+            width: 223px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 58px;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        #smar {
+            left: 84px;
+            top: 12.5px;
+            position: absolute;
+            overflow: visible;
+            width: 143px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 54px;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        #Icon_awesome-shopping-bag {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Icon_awesome-shopping-bag {
+            overflow: visible;
+            position: absolute;
+            width: 56.359px;
+            height: 64.41px;
+            left: 13.56px;
+            top: 0px;
+            transform: matrix(1, 0, 0, 1, 0, 0);
+        }
+
+        #Administration_Dashboard {
+            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.161));
+            left: 855px;
+            top: 40px;
+            position: absolute;
+            overflow: visible;
+            width: 561px;
+            white-space: nowrap;
+            text-align: center;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 30px;
+            color: rgba(255, 255, 255, 1);
+            letter-spacing: 2.31px;
+        }
+
+        #Group_4 {
+            position: absolute;
+            width: 494px;
+            height: 446px;
+            left: 135px;
+            top: 317px;
+            overflow: visible;
+        }
+
+        #Rectangle_3 {
+            fill: rgba(22, 66, 152, 1);
+
+        }
+
+        .Rectangle_3 {
+            filter: drop-shadow(0px 6px 20px rgba(18, 60, 118, 1));
+            position: fixed;
+            overflow: visible;
+            transform: scale(1);
+            transition-duration: 0.3s;
+            left: 124px;
+            top: 317px;
+        }
+
+
+        #Warehouse_Administrator {
+            left: 173px;
+            top: 530px;
+            position: fixed;
+            overflow: visible;
+            width: 298px;
+            white-space: nowrap;
+            text-align: center;
+            font-family: Montserrat;
+            font-style: italic;
+            font-weight: normal;
+            font-size: 26px;
+            color: rgba(255, 255, 255, 1);
+            letter-spacing: 2.31px;
+            text-transform: uppercase;
+        }
+
+        #Icon_awesome-warehouse {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Icon_awesome-warehouse {
+            overflow: visible;
+            position: absolute;
+            width: 151.257px;
+            height: 121px;
+            left: 176px;
+            top: 102px;
+            transform: matrix(1, 0, 0, 1, 0, 0);
+        }
+
+        #Group_6 {
+            position: absolute;
+            width: 734px;
+            height: 734px;
+            left: 918px;
+            top: 219px;
+            overflow: visible;
+        }
+
+        #Rectangle_6 {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_6 {
+            filter: drop-shadow(0px 5px 20px rgba(0, 0, 0, 0.251));
+            position: absolute;
+            overflow: visible;
+            left: -120px;
+            top: -120px;
+        }
+
+        #WAREHOUSE_ADMIN_SIGNUP {
+            left: -10px;
+            top: -86px;
+            position: absolute;
+            overflow: visible;
+            width: 455px;
+            white-space: nowrap;
+            text-align: center;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 28px;
+            color: rgba(16, 63, 133, 1);
+            letter-spacing: 0.8px;
+        }
+
+        #Group_2 {
+            position: absolute;
+            width: 609px;
+            height: 147px;
+            left: -97px;
+            top: -20px;
+            overflow: visible;
+        }
+
+        #Group_222 {
+            position: absolute;
+            width: 0px;
+            height: 147px;
+            left: -77px;
+            top: -20px;
+            overflow: visible;
+        }
+
+        #Group_us {
+            position: absolute;
+            width: 609px;
+            height: 147px;
+            left: -97px;
+            top: 240px;
+            overflow: visible;
+        }
+
+        #Group_pas {
+            position: absolute;
+            width: 0px;
+            height: 147px;
+            left: -77px;
+            top: 240px;
+            overflow: visible;
+        }
+
+        #Rectangle_7 {
+            fill: rgba(240, 242, 247, 1);
+        }
+
+        #Rectangle_777 {
+            fill: rgba(240, 242, 247, 1);
+        }
+
+        .Rectangle_7 {
+            position: absolute;
+            overflow: visible;
+            width: 609px;
+            height: 92px;
+            left: 0px;
+            top: 55px;
+        }
+
+        .Rectangle_777 {
+            position: absolute;
+            overflow: visible;
+            width: 300px;
+            height: 92px;
+            left: 310px;
+            top: 55px;
+        }
+
+        #User_ID {
+            left: 8.5px;
+            top: 20px;
+            position: absolute;
+            overflow: visible;
+            width: 121px;
+            white-space: nowrap;
+            text-align: center;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 28px;
+            color: rgba(16, 63, 133, 1);
+            letter-spacing: 0.8px;
+        }
+
+        #User_FN {
+            left: 8.5px;
+            top: 20px;
+            position: absolute;
+            overflow: visible;
+            width: 121px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            color: rgba(16, 63, 133, 1);
+            letter-spacing: 0.8px;
+        }
+
+        #User_LN {
+            left: 318.5px;
+            top: 20px;
+            position: absolute;
+            overflow: visible;
+            width: 121px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            color: rgba(16, 63, 133, 1);
+            letter-spacing: 0.8px;
+        }
+
         #USER_pas {
-		left: 318.5px;
-		top: 20px;
-		position: absolute;
-		overflow: visible;
-		width: 121px;
-		white-space: nowrap;
-		text-align: center;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 20px;
-		color: rgba(16,63,133,1);
-		letter-spacing: 0.8px;
-	}
+            left: 318.5px;
+            top: 20px;
+            position: absolute;
+            overflow: visible;
+            width: 121px;
+            white-space: nowrap;
+            text-align: center;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            color: rgba(16, 63, 133, 1);
+            letter-spacing: 0.8px;
+        }
 
-    
-    
-   
- 
-    .enterthemail {
-    background-color: rgba(255,255,255,0.0);
-    left:-100px;
-    top: -55px;
-    height: 36px;
-    width: 520px;
-    position: absolute;
-    margin: 0;
-    transform: rotate(0);
-    opacity: 1.0;
-    font-family: 'Montserrat',Helvetica,Arial,serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 20px;
-    color: rgba(163,163,163,1.0);
-    text-align: left;
-    letter-spacing: 2.24px;
-    line-height: 20.0px;
-    border: 0;
-    resize: none;
-    padding: 0;
-    outline: none
-    }
-     .entertheusername {
-    background-color: rgba(255,255,255,0.0);
-    top: 75px;
-    height: 36px;
-    width: 280px;
-    position: absolute;
-    margin: 0;
-    left: 17px;
-    transform: rotate(0);
-    opacity: 1.0;
-    font-family: 'Montserrat',Helvetica,Arial,serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 20px;
-    color: rgba(163,163,163,1.0);
-    text-align: left;
-    letter-spacing: 2.24px;
-    line-height: 28.0px;
-    border: 0;
-    resize: none;
-    padding: 0;
-    outline: none
-    }
-      .enterus   {
-    background-color: rgba(255,255,255,0.0);
-    top: 75px;
-    height: 36px;
-    width: 280px;
-    position: absolute;
-    margin: 0;
-    left: 17px;
-    transform: rotate(0);
-    opacity: 1.0;
-    font-family: 'Montserrat',Helvetica,Arial,serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 20px;
-    color: rgba(163,163,163,1.0);
-    text-align: left;
-    letter-spacing: 2.24px;
-    line-height: 28.0px;
-    border: 0;
-    resize: none;
-    padding: 0;
-    outline: none
-    }
-     .entertheusername2 {
-    background-color: rgba(255,255,255,0.0);
-    top: 75px;
-    height: 36px;
-    width: 280px;
-    position: absolute;
-    margin: 0;
-    left: 327px;
-    transform: rotate(0);
-    opacity: 1.0;
-    font-family: 'Montserrat',Helvetica,Arial,serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 20px;
-    color: rgba(163,163,163,1.0);
-    text-align: left;
-    letter-spacing: 2.24px;
-    line-height: 28.0px;
-    border: 0;
-    resize: none;
-    padding: 0;
-    outline: none
-    }
-    
-       .enterpass{
-    background-color: rgba(255,255,255,0.0);
-    top: 75px;
-    height: 36px;
-    width: 280px;
-    position: absolute;
-    margin: 0;
-    left: 327px;
-    transform: rotate(0);
-    opacity: 1.0;
-    font-family: 'Montserrat',Helvetica,Arial,serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 20px;
-    color: rgba(163,163,163,1.0);
-    text-align: left;
-    letter-spacing: 2.24px;
-    line-height: 28.0px;
-    border: 0;
-    resize: none;
-    padding: 0;
-    outline: none
-    }
-	#Group_3 {
-		position: absolute;
-		left: 22px;
-		top: 240px;
-		overflow: visible;
-	}
-	#Rectangle_7_ {
-		fill: rgba(240,242,247,1);
-	}
-	.Rectangle_7_ {
-		position: absolute;
-		overflow: visible;
-		width: 609px;
-		height: 92px;
-		left:-120px;
-		top: -75px;
-	}
-	#Email {
-		left:-105px;
-		top: -110px;
-		position: absolute;
-		overflow: visible;
-		width: 159px;
-		white-space: nowrap;
-		text-align: left  ;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 20px;
-		color: rgba(16,63,133,1);
-		letter-spacing: 0.8px;
-	}
-    #USER_ID {
-		left:10px;
-		top: 20px;
-		position: absolute;
-		overflow: visible;
-		width: 159px;
-		white-space: nowrap;
-		text-align: left;
-		font-family: Montserrat;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 20px;
-		color: rgba(16,63,133,1);
-		letter-spacing: 0.8px;
-	}
-    .enterthepassword2 {
-    background-color: rgba(255,255,255,0.0);
-    top: 84px;
-    height: 36px;
-    width: 520px;
-    position: absolute;
-    margin: 0;
-    left: 17px;
-    transform: rotate(0);
-    opacity: 1.0;
-    font-family: 'Montserrat',Helvetica,Arial,serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 28.0px;
-    color: rgba(163,163,163,1.0);
-    text-align: left;
-    letter-spacing: 2.24px;
-    line-height: 28.0px;
-    border: 0;
-    resize: none;
-    padding: 0;
-    outline: none
-    }
-	#Group_5 {
-		position: absolute;
-		left: -99px;
-		top: 400px;
-		overflow: visible;
-	}
-	#Rectangle_8 {
-		fill: rgba(30,70,178,1);
-	}
-	.Rectangle_8 {
-		position: absolute;
-		overflow: visible;
-		width: 650px;
-		height: 92px;
-		left: 0px;
-		top: 10px;
-	}
 
-    button {
-  background-color:  rgba(30,70,178,1);
-  width:630px; 
-  height:70px;
-  border-radius: 10px;
-  font-family: Montserrat;
-  letter-spacing: 2.01px;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 28px;
-  color: rgba(255,255,255,1);
-  white-space: nowrap;
-  transform: scale(1);
-  transition-duration: 0.3s ;
-}
-    button:hover{
-         transform: scale(1.05);
-        transition-timing-function: ease-in-out;
-        transition-duration: 0.3s ;
-    }
-</style>
+        .enterthemail {
+            background-color: rgba(255, 255, 255, 0.0);
+            left: -100px;
+            top: -55px;
+            height: 36px;
+            width: 520px;
+            position: absolute;
+            margin: 0;
+            transform: rotate(0);
+            opacity: 1.0;
+            font-family: 'Montserrat', Helvetica, Arial, serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 20px;
+            color: rgba(163, 163, 163, 1.0);
+            text-align: left;
+            letter-spacing: 2.24px;
+            line-height: 20.0px;
+            border: 0;
+            resize: none;
+            padding: 0;
+            outline: none
+        }
+
+        .entertheusername {
+            background-color: rgba(255, 255, 255, 0.0);
+            top: 75px;
+            height: 36px;
+            width: 280px;
+            position: absolute;
+            margin: 0;
+            left: 17px;
+            transform: rotate(0);
+            opacity: 1.0;
+            font-family: 'Montserrat', Helvetica, Arial, serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 20px;
+            color: rgba(163, 163, 163, 1.0);
+            text-align: left;
+            letter-spacing: 2.24px;
+            line-height: 28.0px;
+            border: 0;
+            resize: none;
+            padding: 0;
+            outline: none
+        }
+
+        .enterus {
+            background-color: rgba(255, 255, 255, 0.0);
+            top: 75px;
+            height: 36px;
+            width: 280px;
+            position: absolute;
+            margin: 0;
+            left: 17px;
+            transform: rotate(0);
+            opacity: 1.0;
+            font-family: 'Montserrat', Helvetica, Arial, serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 20px;
+            color: rgba(163, 163, 163, 1.0);
+            text-align: left;
+            letter-spacing: 2.24px;
+            line-height: 28.0px;
+            border: 0;
+            resize: none;
+            padding: 0;
+            outline: none
+        }
+
+        .entertheusername2 {
+            background-color: rgba(255, 255, 255, 0.0);
+            top: 75px;
+            height: 36px;
+            width: 280px;
+            position: absolute;
+            margin: 0;
+            left: 327px;
+            transform: rotate(0);
+            opacity: 1.0;
+            font-family: 'Montserrat', Helvetica, Arial, serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 20px;
+            color: rgba(163, 163, 163, 1.0);
+            text-align: left;
+            letter-spacing: 2.24px;
+            line-height: 28.0px;
+            border: 0;
+            resize: none;
+            padding: 0;
+            outline: none
+        }
+
+        .enterpass {
+            background-color: rgba(255, 255, 255, 0.0);
+            top: 75px;
+            height: 36px;
+            width: 280px;
+            position: absolute;
+            margin: 0;
+            left: 327px;
+            transform: rotate(0);
+            opacity: 1.0;
+            font-family: 'Montserrat', Helvetica, Arial, serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 20px;
+            color: rgba(163, 163, 163, 1.0);
+            text-align: left;
+            letter-spacing: 2.24px;
+            line-height: 28.0px;
+            border: 0;
+            resize: none;
+            padding: 0;
+            outline: none
+        }
+
+        #Group_3 {
+            position: absolute;
+            left: 22px;
+            top: 240px;
+            overflow: visible;
+        }
+
+        #Rectangle_7_ {
+            fill: rgba(240, 242, 247, 1);
+        }
+
+        .Rectangle_7_ {
+            position: absolute;
+            overflow: visible;
+            width: 609px;
+            height: 92px;
+            left: -120px;
+            top: -75px;
+        }
+
+        #Email {
+            left: -105px;
+            top: -110px;
+            position: absolute;
+            overflow: visible;
+            width: 159px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            color: rgba(16, 63, 133, 1);
+            letter-spacing: 0.8px;
+        }
+
+        #USER_ID {
+            left: 10px;
+            top: 20px;
+            position: absolute;
+            overflow: visible;
+            width: 159px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            color: rgba(16, 63, 133, 1);
+            letter-spacing: 0.8px;
+        }
+
+        .enterthepassword2 {
+            background-color: rgba(255, 255, 255, 0.0);
+            top: 84px;
+            height: 36px;
+            width: 520px;
+            position: absolute;
+            margin: 0;
+            left: 17px;
+            transform: rotate(0);
+            opacity: 1.0;
+            font-family: 'Montserrat', Helvetica, Arial, serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 28.0px;
+            color: rgba(163, 163, 163, 1.0);
+            text-align: left;
+            letter-spacing: 2.24px;
+            line-height: 28.0px;
+            border: 0;
+            resize: none;
+            padding: 0;
+            outline: none
+        }
+
+        #Group_5 {
+            position: absolute;
+            left: -99px;
+            top: 400px;
+            overflow: visible;
+        }
+
+        #Rectangle_8 {
+            fill: rgba(30, 70, 178, 1);
+        }
+
+        .Rectangle_8 {
+            position: absolute;
+            overflow: visible;
+            width: 650px;
+            height: 92px;
+            left: 0px;
+            top: 10px;
+        }
+
+        button {
+            background-color: rgba(30, 70, 178, 1);
+            width: 630px;
+            height: 70px;
+            border-radius: 10px;
+            font-family: Montserrat;
+            letter-spacing: 2.01px;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 28px;
+            color: rgba(255, 255, 255, 1);
+            white-space: nowrap;
+            transform: scale(1);
+            transition-duration: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            transition-timing-function: ease-in-out;
+            transition-duration: 0.3s;
+        }
+    </style>
 </head>
 <body>
-	<div id="logo">
-		<div id="Tangle_">
-			<span>Tangle </span>
-		</div>
-		<div id="smar">
-			<span>smar</span>
-		</div>
-		<svg class="Icon_awesome-shopping-bag" viewBox="0 0 56.359 64.41">
-			<path id="Icon_awesome-shopping-bag" d="M 44.28187561035156 20.12812423706055 L 44.28187561035156 16.10249900817871 C 44.28187561035156 7.223481178283691 37.05826950073242 0 28.17937469482422 0 C 19.30035591125488 0 12.07687473297119 7.223481178283691 12.07687473297119 16.10249900817871 L 12.07687473297119 20.12812423706055 L 0 20.12812423706055 L 0 54.3459358215332 C 0 59.90419387817383 4.505806922912598 64.40999603271484 10.06406211853027 64.40999603271484 L 46.2946891784668 64.40999603271484 C 51.85294342041016 64.40999603271484 56.35874938964844 59.90419387817383 56.35874938964844 54.3459358215332 L 56.35874938964844 20.12812423706055 L 44.28187561035156 20.12812423706055 Z M 20.12812423706055 16.10249900817871 C 20.12812423706055 11.66299057006836 23.73986625671387 8.051249504089355 28.17937469482422 8.051249504089355 C 32.61888122558594 8.051249504089355 36.23062515258789 11.66299057006836 36.23062515258789 16.10249900817871 L 36.23062515258789 20.12812423706055 L 20.12812423706055 20.12812423706055 L 20.12812423706055 16.10249900817871 Z M 40.25624847412109 31.19859313964844 C 38.58876419067383 31.19859313964844 37.23703002929688 29.84686470031738 37.23703002929688 28.17937469482422 C 37.23703002929688 26.51188659667969 38.58876419067383 25.16015625 40.25624847412109 25.16015625 C 41.92374038696289 25.16015625 43.27546691894531 26.51188468933105 43.27546691894531 28.17937469482422 C 43.27546691894531 29.84686470031738 41.92374038696289 31.19859313964844 40.25624847412109 31.19859313964844 Z M 16.10249900817871 31.19859313964844 C 14.43500995635986 31.19859313964844 13.08328151702881 29.84686470031738 13.08328151702881 28.17937469482422 C 13.08328151702881 26.51188659667969 14.43500995635986 25.16015625 16.10249900817871 25.16015625 C 17.76999092102051 25.16015625 19.12171936035156 26.51188468933105 19.12171936035156 28.17937469482422 C 19.12171936035156 29.84686470031738 17.76999092102051 31.19859313964844 16.10249900817871 31.19859313964844 Z">
-			</path>
-		</svg>
-	</div>
-	<div id="Administration_Dashboard">
-		<span>Administration Dashboard</span>
-	</div>
+<div id="logo">
+    <div id="Tangle_">
+        <span>Tangle </span>
+    </div>
+    <div id="smar">
+        <span>smar</span>
+    </div>
+    <svg class="Icon_awesome-shopping-bag" viewBox="0 0 56.359 64.41">
+        <path id="Icon_awesome-shopping-bag"
+              d="M 44.28187561035156 20.12812423706055 L 44.28187561035156 16.10249900817871 C 44.28187561035156 7.223481178283691 37.05826950073242 0 28.17937469482422 0 C 19.30035591125488 0 12.07687473297119 7.223481178283691 12.07687473297119 16.10249900817871 L 12.07687473297119 20.12812423706055 L 0 20.12812423706055 L 0 54.3459358215332 C 0 59.90419387817383 4.505806922912598 64.40999603271484 10.06406211853027 64.40999603271484 L 46.2946891784668 64.40999603271484 C 51.85294342041016 64.40999603271484 56.35874938964844 59.90419387817383 56.35874938964844 54.3459358215332 L 56.35874938964844 20.12812423706055 L 44.28187561035156 20.12812423706055 Z M 20.12812423706055 16.10249900817871 C 20.12812423706055 11.66299057006836 23.73986625671387 8.051249504089355 28.17937469482422 8.051249504089355 C 32.61888122558594 8.051249504089355 36.23062515258789 11.66299057006836 36.23062515258789 16.10249900817871 L 36.23062515258789 20.12812423706055 L 20.12812423706055 20.12812423706055 L 20.12812423706055 16.10249900817871 Z M 40.25624847412109 31.19859313964844 C 38.58876419067383 31.19859313964844 37.23703002929688 29.84686470031738 37.23703002929688 28.17937469482422 C 37.23703002929688 26.51188659667969 38.58876419067383 25.16015625 40.25624847412109 25.16015625 C 41.92374038696289 25.16015625 43.27546691894531 26.51188468933105 43.27546691894531 28.17937469482422 C 43.27546691894531 29.84686470031738 41.92374038696289 31.19859313964844 40.25624847412109 31.19859313964844 Z M 16.10249900817871 31.19859313964844 C 14.43500995635986 31.19859313964844 13.08328151702881 29.84686470031738 13.08328151702881 28.17937469482422 C 13.08328151702881 26.51188659667969 14.43500995635986 25.16015625 16.10249900817871 25.16015625 C 17.76999092102051 25.16015625 19.12171936035156 26.51188468933105 19.12171936035156 28.17937469482422 C 19.12171936035156 29.84686470031738 17.76999092102051 31.19859313964844 16.10249900817871 31.19859313964844 Z">
+        </path>
+    </svg>
+</div>
+<div id="Administration_Dashboard">
+    <span>Administration Dashboard</span>
+</div>
 
-		<svg class="Rectangle_3" >
-		<rect id="Rectangle_3" rx="20" ry="20" x="0" y="-40" width="394" height="346" >
+<svg class="Rectangle_3">
+    <rect id="Rectangle_3" rx="20" ry="20" x="0" y="-40" width="394" height="346">
+    </rect>
+
+    <svg class="Icon_awesome-warehouse" viewBox="-120 -30 286 168.8">
+        <path id="Icon_awesome-warehouse"
+              d="M 119.1151504516602 83.18739318847656 L 32.23672103881836 83.18739318847656 C 31.19682693481445 83.18739318847656 30.34600257873535 84.03821563720703 30.34600257873535 85.07810974121094 L 30.3223705291748 96.42241668701172 C 30.3223705291748 97.46231079101563 31.17319297790527 98.31312561035156 32.21308517456055 98.31312561035156 L 119.1151504516602 98.31312561035156 C 120.1550445556641 98.31312561035156 121.0058746337891 97.46231079101563 121.0058746337891 96.42241668701172 L 121.0058746337891 85.07810974121094 C 121.0058746337891 84.03821563720703 120.1550445556641 83.18739318847656 119.1151504516602 83.18739318847656 Z M 119.1151504516602 105.8759994506836 L 32.16582107543945 105.8759994506836 C 31.12592697143555 105.8759994506836 30.27510261535645 106.7268142700195 30.27510261535645 107.766716003418 L 30.25146865844727 119.1110153198242 C 30.25146865844727 120.1509094238281 31.10229301452637 121.0017395019531 32.14218521118164 121.0017395019531 L 119.1151504516602 121.0017395019531 C 120.1550445556641 121.0017395019531 121.0058746337891 120.1509094238281 121.0058746337891 119.1110153198242 L 121.0058746337891 107.766716003418 C 121.0058746337891 106.7268142700195 120.1550445556641 105.8759994506836 119.1151504516602 105.8759994506836 Z M 119.1151504516602 60.49879455566406 L 32.28398895263672 60.49879455566406 C 31.24409675598145 60.49879455566406 30.39327239990234 61.34961318969727 30.39327239990234 62.38951110839844 L 30.36963653564453 73.73381042480469 C 30.36963653564453 74.77370452880859 31.22046089172363 75.62452697753906 32.26035308837891 75.62452697753906 L 119.1151504516602 75.62452697753906 C 120.1550445556641 75.62452697753906 121.0058746337891 74.77370452880859 121.0058746337891 73.73381042480469 L 121.0058746337891 62.38951110839844 C 121.0058746337891 61.34961318969727 120.1550445556641 60.49879455566406 119.1151504516602 60.49879455566406 Z M 144.2853240966797 27.64759063720703 L 79.97732543945313 0.8703154325485229 C 77.18569183349609 -0.2877674698829651 74.04803466796875 -0.2877666652202606 71.25639343261719 0.8703159689903259 L 6.972018241882324 27.64759063720703 C 2.765173196792603 29.42013740539551 0 33.53244400024414 0 38.117431640625 L 0 119.1110153198242 C 0 120.1509094238281 0.8508226275444031 121.0017395019531 1.890716791152954 121.0017395019531 L 20.79788398742676 121.0017395019531 C 21.83777809143066 121.0017395019531 22.68860244750977 120.1509094238281 22.68860244750977 119.1110153198242 L 22.68860244750977 60.49879455566406 C 22.68860244750977 56.33921813964844 26.13916015625 52.9359245300293 30.39327239990234 52.9359245300293 L 120.8640670776367 52.9359245300293 C 125.1181793212891 52.9359245300293 128.5687408447266 56.33921813964844 128.5687408447266 60.49879455566406 L 128.5687408447266 119.1110153198242 C 128.5687408447266 120.1509094238281 129.4195709228516 121.0017395019531 130.4594573974609 121.0017395019531 L 149.3666229248047 121.0017395019531 C 150.4065246582031 121.0017395019531 151.2573394775391 120.1509094238281 151.2573394775391 119.1110153198242 L 151.2573394775391 38.117431640625 C 151.2573394775391 33.53244400024414 148.4921722412109 29.42013740539551 144.2853240966797 27.64759063720703 Z">
+        </path>
+
+    </svg>
+    <div id="Warehouse_Administrator">
+        <span>Warehouse<br/>Administrator</span>
+    </div>
+</svg>
+<div id="Group_6">
+    <form method="post">
+        {% csrf_token %}
+        <svg class="Rectangle_6">
+            <rect id="Rectangle_6" rx="10" ry="10" x="0" y="0" width="675" height="604">
             </rect>
-    
-        <svg class="Icon_awesome-warehouse" viewBox="-120 -30 286 168.8">
-		<path id="Icon_awesome-warehouse" d="M 119.1151504516602 83.18739318847656 L 32.23672103881836 83.18739318847656 C 31.19682693481445 83.18739318847656 30.34600257873535 84.03821563720703 30.34600257873535 85.07810974121094 L 30.3223705291748 96.42241668701172 C 30.3223705291748 97.46231079101563 31.17319297790527 98.31312561035156 32.21308517456055 98.31312561035156 L 119.1151504516602 98.31312561035156 C 120.1550445556641 98.31312561035156 121.0058746337891 97.46231079101563 121.0058746337891 96.42241668701172 L 121.0058746337891 85.07810974121094 C 121.0058746337891 84.03821563720703 120.1550445556641 83.18739318847656 119.1151504516602 83.18739318847656 Z M 119.1151504516602 105.8759994506836 L 32.16582107543945 105.8759994506836 C 31.12592697143555 105.8759994506836 30.27510261535645 106.7268142700195 30.27510261535645 107.766716003418 L 30.25146865844727 119.1110153198242 C 30.25146865844727 120.1509094238281 31.10229301452637 121.0017395019531 32.14218521118164 121.0017395019531 L 119.1151504516602 121.0017395019531 C 120.1550445556641 121.0017395019531 121.0058746337891 120.1509094238281 121.0058746337891 119.1110153198242 L 121.0058746337891 107.766716003418 C 121.0058746337891 106.7268142700195 120.1550445556641 105.8759994506836 119.1151504516602 105.8759994506836 Z M 119.1151504516602 60.49879455566406 L 32.28398895263672 60.49879455566406 C 31.24409675598145 60.49879455566406 30.39327239990234 61.34961318969727 30.39327239990234 62.38951110839844 L 30.36963653564453 73.73381042480469 C 30.36963653564453 74.77370452880859 31.22046089172363 75.62452697753906 32.26035308837891 75.62452697753906 L 119.1151504516602 75.62452697753906 C 120.1550445556641 75.62452697753906 121.0058746337891 74.77370452880859 121.0058746337891 73.73381042480469 L 121.0058746337891 62.38951110839844 C 121.0058746337891 61.34961318969727 120.1550445556641 60.49879455566406 119.1151504516602 60.49879455566406 Z M 144.2853240966797 27.64759063720703 L 79.97732543945313 0.8703154325485229 C 77.18569183349609 -0.2877674698829651 74.04803466796875 -0.2877666652202606 71.25639343261719 0.8703159689903259 L 6.972018241882324 27.64759063720703 C 2.765173196792603 29.42013740539551 0 33.53244400024414 0 38.117431640625 L 0 119.1110153198242 C 0 120.1509094238281 0.8508226275444031 121.0017395019531 1.890716791152954 121.0017395019531 L 20.79788398742676 121.0017395019531 C 21.83777809143066 121.0017395019531 22.68860244750977 120.1509094238281 22.68860244750977 119.1110153198242 L 22.68860244750977 60.49879455566406 C 22.68860244750977 56.33921813964844 26.13916015625 52.9359245300293 30.39327239990234 52.9359245300293 L 120.8640670776367 52.9359245300293 C 125.1181793212891 52.9359245300293 128.5687408447266 56.33921813964844 128.5687408447266 60.49879455566406 L 128.5687408447266 119.1110153198242 C 128.5687408447266 120.1509094238281 129.4195709228516 121.0017395019531 130.4594573974609 121.0017395019531 L 149.3666229248047 121.0017395019531 C 150.4065246582031 121.0017395019531 151.2573394775391 120.1509094238281 151.2573394775391 119.1110153198242 L 151.2573394775391 38.117431640625 C 151.2573394775391 33.53244400024414 148.4921722412109 29.42013740539551 144.2853240966797 27.64759063720703 Z">
-		</path>
-            
-	</svg>
-        <div id="Warehouse_Administrator">
-		<span>Warehouse<br/>Administrator</span>
-	</div>
         </svg>
-	<div id="Group_6">
-        <form method="post">
-            {% csrf_token %}
-            <svg class="Rectangle_6">
-                <rect id="Rectangle_6" rx="10" ry="10" x="0" y="0" width="675" height="604">
+        <div id="WAREHOUSE_ADMIN_SIGNUP">
+            <span top>WAREHOUSE ADMIN SIGNUP</span>
+        </div>
+        <div id="Group_2">
+            <svg class="Rectangle_7">
+                <rect id="Rectangle_7" rx="10" ry="10" x="0" y="0" width="300" height="75">
+                </rect>
+                <input type="text"/>
+            </svg>
+            <div id="User_FN">
+                <span>First Name</span>
+            </div>
+            <input class="entertheusername" name="first_name" placeholder="First name">
+
+        </div>
+        <div id="Group_222">
+            <svg class="Rectangle_777">
+                <rect id="Rectangle_777" rx="10" ry="10" x="0" y="0" width="300" height="75">
+                </rect>
+                <input type="text"/>
+            </svg>
+            <div id="User_LN">
+                <span>Last Name</span>
+            </div>
+            <input class="entertheusername2" name="last_name" placeholder="Last Name">
+
+        </div>
+        <div id="Group_3">
+            <svg class="Rectangle_7_">
+                <rect id="Rectangle_7_" rx="10" ry="10" x="0" y="0" width="635" height="75"></rect>
+
+            </svg>
+            <div id="Email">
+                <span>Email ID</span>
+            </div>
+            <input type="email" class="enterthemail" name="email" placeholder="Email">
+        </div>
+        <div id="Group_us">
+            <svg class="Rectangle_7">
+                <rect id="Rectangle_7" rx="10" ry="10" x="0" y="0" width="300" height="75">
                 </rect>
             </svg>
-            <div id="WAREHOUSE_ADMIN_SIGNUP">
-                <span top>WAREHOUSE ADMIN SIGNUP</span>
+            <div id="USER_ID">
+                <span>User ID</span>
             </div>
-            <div id="Group_2">
-                <svg class="Rectangle_7">
-                    <rect id="Rectangle_7" rx="10" ry="10" x="0" y="0" width="300" height="75">
-                    </rect>
-                    <input type="text" />
-                </svg>
-                <div id="User_FN">
-                    <span>First Name</span>
-                </div>
-                <input class="entertheusername" name="first_name" placeholder="First name">
+            <input class="enterus" name="username" placeholder="Username">
+        </div>
+        <div id="Group_pas">
+            <svg class="Rectangle_777">
+                <rect id="Rectangle_777" rx="10" ry="10" x="0" y="0" width="300" height="75">
+                </rect>
+            </svg>
+            <div id="USER_pas">
+                <span>Password</span>
+            </div>
+            <input type="password" class="enterpass" name="password1" placeholder="Password">
 
-            </div>
-            <div id="Group_222">
-                <svg class="Rectangle_777">
-                    <rect id="Rectangle_777" rx="10" ry="10" x="0" y="0" width="300" height="75">
-                    </rect>
-                    <input type="text" />
-                </svg>
-                <div id="User_LN">
-                    <span>Last Name</span>
-                </div>
-                <input class="entertheusername2" name="last_name" placeholder="Last Name">
+        </div>
+        <div id="Group_5">
+            <button type="submit" value="Login">SIGN UP</button>
 
-            </div>
-            <div id="Group_3">
-                <svg class="Rectangle_7_">
-                    <rect id="Rectangle_7_" rx="10" ry="10" x="0" y="0" width="635" height="75"></rect>
-
-                </svg>
-                <div id="Email">
-                    <span>Email ID</span>
-                </div>
-                 <input type="email" class="enterthemail" name="email" placeholder="Email">
-            </div>
-            <div id="Group_us">
-                <svg class="Rectangle_7">
-                    <rect id="Rectangle_7" rx="10" ry="10" x="0" y="0" width="300" height="75">
-                    </rect>
-                </svg>
-                <div id="USER_ID">
-                    <span>User ID</span>
-                </div>
-                <input class="enterus" name="username" placeholder="Username">
-            </div>
-            <div id="Group_pas">
-                <svg class="Rectangle_777">
-                    <rect id="Rectangle_777" rx="10" ry="10" x="0" y="0" width="300" height="75">
-                    </rect>
-                </svg>
-                <div id="USER_pas">
-                    <span>Password</span>
-                </div>
-                <input type="password" class="enterpass" name="password1" placeholder="Password">
-
-            </div>
-            <div id="Group_5">
-                <button type="submit" value="Login">SIGN UP</button>
-
-            </div>
-        </form>
-	</div>
+        </div>
+    </form>
+</div>
 </body>
 </html>
