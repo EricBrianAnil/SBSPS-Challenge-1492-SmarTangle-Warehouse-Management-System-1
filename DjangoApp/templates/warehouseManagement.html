@@ -116,10 +116,10 @@
         <script>
             requestList = new Object();
             {% for key, item in requestValidation.items %}
-                requestList[{{ key }}] = item;
+                requestList[{{ key }}] = '{{ item }}';
             {% endfor %}
             function myFunction(requestId) {
-                if(requestList[requestId]){
+                if(requestList[requestId] === 'True'){
                     document.getElementById("accept").disabled = true;
                     document.getElementById('truckSelect').disabled = false;
                     var submitButton = document.createElement('button');
