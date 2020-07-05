@@ -4,6 +4,23 @@
 {% block title %} Store Inventory : {{ store.store_id }} {% endblock title %}
 {% block content %}
     {% autoescape on %}
+
+        <script>
+            var itemList = Object();
+            {% for item in items %}
+                itemList[{{ item.rawMaterial_id.rawMaterial_id }}] = {{ item.unitsAvailable }};
+            {% endfor %}
+            function validateForm() {
+                var units = document.getElementById('units-field').value;
+                var availableUnits = itemList[document.getElementById('item-field').value];
+                if(units > availableUnits){
+                    alert(`Entered units exceeds available units by ${units - availableUnits} units!`);
+                    return false;
+                }
+                alert('Correct Input');
+                return true;
+            }
+        </script>
         <div class="row">
             <div class="col-md-12 grid-margin">
                 <div class="card">
@@ -46,7 +63,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Sales</h4>
-                    <form class="form-sample" action="/storeDetails" method="post" name="myform">
+                    <form class="form-sample" action="/storeDetails" method="post" name="myform" onsubmit="return validateForm()">
                       {% csrf_token %}
                       <input type="hidden" name="store_id" value={{ store.store_id }}>
                       <p class="card-description"> Shopping Menu </p>
@@ -55,7 +72,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Item</label>
                             <div class="col-sm-9">
-                              <select class="form-control" name="rawMaterial_id">
+                              <select id='item-field' class="form-control" name="rawMaterial_id">
                               {% for item in items %}
                                 <option value="{{ item.rawMaterial_id.rawMaterial_id }}"> {{ item.rawMaterial_id.rawMaterial_name }} </option>
                               {% endfor %}
@@ -67,7 +84,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Units</label>
                             <div class="col-sm-9">
-                              <input class="form-control" name="units">
+                              <input type="number" id='units-field' class="form-control" name="units" min="0" required>
                             </div>
                           </div>
                         </div>

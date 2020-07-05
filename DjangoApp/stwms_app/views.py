@@ -137,7 +137,7 @@ def rawmaterial_request(request):
 def w_manage(request):
     if request.user.username == 'admin_ibm':
         if request.method == "POST":
-            rm_request = RawMaterialRequest.objects.get(request_id=request.POST['request_id'])
+            rm_request = RawMaterialRequest.objects.get(request_id=request.POST['rawMaterialRequest'])
             if request.POST['Action'] == 'Accepted':
                 rm_request.status = 'Accepted'
                 rm_request.truck_id = TruckDetails.objects.get(truck_id=request.POST['truck_id'])
@@ -170,6 +170,7 @@ def w_manage(request):
             else:
                 rm_request.status = 'Rejected'
             rm_request.save()
+
         context = {
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),
@@ -177,9 +178,18 @@ def w_manage(request):
             'requests': RawMaterialRequest.objects.all(),
             'inventory': StoreInventory.objects,
             'trucks': TruckDetails.objects.all(),
-            'logs': LogEntry.objects.all()
+            'logs': LogEntry.objects.all(),
+            'requestValidation': dict()
         }
+
+        for rawMaterialRequest in RawMaterialRequest.objects.filter(status='Pending'):
+            fromStoreUnits = StoreInventory.objects.get(rawMaterial_id=rawMaterialRequest.rawMaterial_id,
+                                                  storeId=rawMaterialRequest.fromStore_id).unitsAvailable
+            toStoreUnits = rawMaterialRequest.units
+            print(fromStoreUnits, toStoreUnits)
+            context['requestValidation'][rawMaterialRequest.request_id] = ((fromStoreUnits - toStoreUnits) > 0)
         context['logsLen'] = len(context['logs'])
+        print(context['requestValidation'])
         return render(request, 'warehouseManagement.html', context)
 
 

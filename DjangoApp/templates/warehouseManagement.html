@@ -114,16 +114,25 @@
               </div>
         </div>
         <script>
-            function myFunction() {
-                document.getElementById("accept").disabled = true;
-                document.getElementById('truckSelect').disabled = false;
-                var submitButton = document.createElement('button');
-                submitButton.name = 'Action';
-                submitButton.type = 'submit';
-                submitButton.value = 'Accepted';
-                submitButton.className = "btn btn-outline-success";
-                submitButton.appendChild(document.createTextNode('Confirm'));
-                document.getElementById('requestForm').appendChild(submitButton);
+            requestList = new Object();
+            {% for key, item in requestValidation.items %}
+                requestList[{{ key }}] = item;
+            {% endfor %}
+            function myFunction(requestId) {
+                if(requestList[requestId]){
+                    document.getElementById("accept").disabled = true;
+                    document.getElementById('truckSelect').disabled = false;
+                    var submitButton = document.createElement('button');
+                    submitButton.name = 'Action';
+                    submitButton.type = 'submit';
+                    submitButton.value = 'Accepted';
+                    submitButton.className = "btn btn-outline-success";
+                    submitButton.appendChild(document.createTextNode('Confirm'));
+                    document.getElementById('requestForm').appendChild(submitButton);
+                }
+                else {
+                    alert("Not Enough Units Available!");
+                }
             }
             function getTruckId() {
                 document.getElementById('truckId').value = document.getElementById('truckSelect').value;
@@ -157,22 +166,22 @@
                             <td>{{ itemRequest.rawMaterial_id.rawMaterial_name }}</td>
                             <td>{{ itemRequest.units }}</td>
                             {% if itemRequest.status == 'Pending' %}
-                                    <td>
-                                    <form id='requestForm' method="post" action="/warehouse_management" onsubmit="getTruckId()">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="request_id" value="{{ itemRequest.request_id }}">
-                                        <button type="button" id="accept" onclick="myFunction()" class="btn btn-outline-success">Accept</button>
-                                        <button type="submit" name="Action" value="Rejected" class="btn btn-outline-danger">Reject</button>
-                                        <input id='truckId' type="hidden" name="truck_id">
-                                    </form>
-                                    </td>
-                                    <td>
-                                        <select id='truckSelect' class="form-control" disabled>
-                                        {% for truck in trucks %}
-                                            <option value="{{ truck.truck_id }}"> {{ truck.truck_owner }} </option>
-                                        {% endfor %}
-                                        </select>
-                                    </td>
+                                <td>
+                                <form id='requestForm' method="post" action="/warehouse_management" onsubmit="getTruckId()">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="request_id" value="{{ itemRequest.request_id }}">
+                                    <button type="button" id="accept" onclick="myFunction({{ itemRequest.request_id }})" class="btn btn-outline-success">Accept</button>
+                                    <button type="submit" name="Action" value="Rejected" class="btn btn-outline-danger">Reject</button>
+                                    <input id='truckId' type="hidden" name="truck_id">
+                                </form>
+                                </td>
+                                <td>
+                                    <select id='truckSelect' class="form-control" disabled>
+                                    {% for truck in trucks %}
+                                        <option value="{{ truck.truck_id }}"> {{ truck.truck_owner }} </option>
+                                    {% endfor %}
+                                    </select>
+                                </td>
                             {% elif itemRequest.status == 'Accepted' %}
                                 <td><label class="badge badge-success">Completed</label></td>
                                 <td>{{ itemRequest.truck.truck_owner }}</td>
