@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block title %} Forecast {% endblock title %}
+{% block page-title %} {{ pageTitle }} {% endblock page-title %}
+
 {% block content %}
     {% autoescape on %}
         <style>
@@ -172,8 +174,8 @@
                     <div class="card" id="card-store">
                         <div class="card-body">
                         <button class="collapsible-store">{{ key.store_name }}</button>
-                        <div class="content">
-                            <table class="table">
+                        <div class="content" style="overflow-x:auto; overflow-y: auto; height: 400px;">
+                        <table class="table table-hover">
                           <thead>
                             <tr>
                               {% for data in value.partforecast %}
@@ -209,7 +211,7 @@
                             <tr>
                               <th>Raw Material</th>
                               <th>Forecast Period</th>
-                              <th>Make Predictions</th>
+                              <th>Forecast</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -223,7 +225,7 @@
                                       </td>
                                       <td>
                                           <input type="hidden" name="rawMaterial_id" value="{{ rawMaterial.rawMaterial_id }}">
-                                          <button type="submit" class="btn btn-dark btn-fw">Make Predictions</button>
+                                          <button type="submit" class="btn btn-dark btn-fw">Forecast</button>
                                       </td>
                                     </tr>
                                 </form>
