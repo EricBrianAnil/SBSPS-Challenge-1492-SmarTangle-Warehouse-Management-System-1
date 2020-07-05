@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="{% static '/assets/images/favicon.png' %}" />
     <script>
         var ChartColor = ["#5D62B4", "#54C3BE", "#EF726F", "#F9C446", "rgb(93.0, 98.0, 180.0)", "#21B7EC", "#04BCCC"];
-        function sortTable(n, tableName) {
+        function sortTable(n, tableName, type) {
           var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
           table = document.getElementById(tableName);
           switching = true;
@@ -50,18 +50,35 @@
               y = rows[i + 1].getElementsByTagName("TD")[n];
               /* Check if the two rows should switch place,
               based on the direction, asc or desc: */
-              if (dir == "asc") {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                  // If so, mark as a switch and break the loop:
-                  shouldSwitch = true;
-                  break;
-                }
-              } else if (dir == "desc") {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                  // If so, mark as a switch and break the loop:
-                  shouldSwitch = true;
-                  break;
-                }
+              if(type == 1) {
+                  if (dir == "asc") {
+                      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                          // If so, mark as a switch and break the loop:
+                          shouldSwitch = true;
+                          break;
+                      }
+                  } else if (dir == "desc") {
+                      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                          // If so, mark as a switch and break the loop:
+                          shouldSwitch = true;
+                          break;
+                      }
+                  }
+              }
+              if(type == 2){
+                  if (dir == "asc") {
+                      if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                          // If so, mark as a switch and break the loop:
+                          shouldSwitch = true;
+                          break;
+                      }
+                  } else if (dir == "desc") {
+                      if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+                          // If so, mark as a switch and break the loop:
+                          shouldSwitch = true;
+                          break;
+                      }
+                  }
               }
             }
             if (shouldSwitch) {
@@ -118,12 +135,6 @@
               </a>
             </li>
             <li class="nav-item nav-category">Main Menu</li>
-{#	          <li class="nav-item">#}
-{#	              <a class="nav-link" href="/home">#}
-{#	                <i class="menu-icon typcn typcn-document-text"></i>#}
-{#	                <span class="menu-title">Dashboard</span>#}
-{#	              </a>#}
-{#	            </li>#}
               <li class="nav-item">
 	              <a class="nav-link" href="/stores">
 	                <i class="menu-icon typcn typcn-document-text"></i>
