@@ -137,7 +137,7 @@ def rawmaterial_request(request):
 def w_manage(request):
     if request.user.username == 'admin_ibm':
         if request.method == "POST":
-            rm_request = RawMaterialRequest.objects.get(request_id=request.POST['rawMaterialRequest'])
+            rm_request = RawMaterialRequest.objects.get(request_id=request.POST['request_id'])
             if request.POST['Action'] == 'Accepted':
                 rm_request.status = 'Accepted'
                 rm_request.truck_id = TruckDetails.objects.get(truck_id=request.POST['truck_id'])
@@ -184,7 +184,7 @@ def w_manage(request):
 
         for rawMaterialRequest in RawMaterialRequest.objects.filter(status='Pending'):
             fromStoreUnits = StoreInventory.objects.get(rawMaterial_id=rawMaterialRequest.rawMaterial_id,
-                                                  storeId=rawMaterialRequest.fromStore_id).unitsAvailable
+                                                        storeId=rawMaterialRequest.fromStore_id).unitsAvailable
             toStoreUnits = rawMaterialRequest.units
             print(fromStoreUnits, toStoreUnits)
             context['requestValidation'][rawMaterialRequest.request_id] = ((fromStoreUnits - toStoreUnits) > 0)
