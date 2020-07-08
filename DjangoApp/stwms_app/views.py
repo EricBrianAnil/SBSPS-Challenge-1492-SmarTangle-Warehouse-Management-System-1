@@ -175,7 +175,7 @@ def w_manage(request):
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),
             'store': StoreDetails.objects.get(store_id='W'),
-            'requests': RawMaterialRequest.objects.all(),
+            'requests': RawMaterialRequest.objects.all()[::-1],
             'inventory': StoreInventory.objects,
             'trucks': TruckDetails.objects.all(),
             'logs': LogEntry.objects.all(),
