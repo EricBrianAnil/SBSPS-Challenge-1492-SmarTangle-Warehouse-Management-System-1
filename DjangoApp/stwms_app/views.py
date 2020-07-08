@@ -195,115 +195,117 @@ def w_manage(request):
 
 @login_required
 def procurement(request):
-    if request.method == "POST":
-        model = joblib.load('static/files/model.sav')
-        dict_data = {
-            'raw_material_id': RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
-            'supplier_id': Suppliers.objects.get(supplier_id=request.POST['supplier_id']),
-            'units': int(request.POST['units']),
-            'calories': float(request.POST['calories']),
-            'proteins': float(request.POST['proteins']),
-            'fat': float(request.POST['fat']),
-            'sodium': float(request.POST['sodium']),
+    if request.user.username == 'admin_ibm':
+        if request.method == "POST":
+            model = joblib.load('static/files/model.sav')
+            dict_data = {
+                'raw_material_id': RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
+                'supplier_id': Suppliers.objects.get(supplier_id=request.POST['supplier_id']),
+                'units': int(request.POST['units']),
+                'calories': float(request.POST['calories']),
+                'proteins': float(request.POST['proteins']),
+                'fat': float(request.POST['fat']),
+                'sodium': float(request.POST['sodium']),
+            }
+            dict_data['quality_score'] = model.predict([[
+                dict_data['calories'],
+                dict_data['proteins'],
+                dict_data['fat'],
+                dict_data['sodium']
+            ]])[0].round(2)
+            batch = RawMaterialBatches(
+                rawMaterial_id=dict_data['raw_material_id'],
+                supplier=dict_data['supplier_id'],
+                units=dict_data['units'],
+                calories=dict_data['calories'],
+                sodium=dict_data['sodium'],
+                proteins=dict_data['proteins'],
+                fat=dict_data['fat'],
+                quality_score=dict_data['quality_score'],
+                hash=''
+            )
+            batch.save()
+            unique_batch_id = batch.uniqueBatch_id
+
+            rawMaterial_update = StoreInventory.objects.get(
+                rawMaterial_id=request.POST['rawMaterial_id'],
+                storeId=StoreDetails.objects.get(store_id='W')
+            )
+            rawMaterial_update.unitsAvailable += dict_data['units']
+            rawMaterial_update.save()
+
+            data = "%d;%s;%s;%s;%s;%s;%s;%s;%s" % (
+                unique_batch_id,
+                dict_data['raw_material_id'].rawMaterial_name,
+                dict_data['supplier_id'].supplier_name,
+                dict_data['units'],
+                dict_data['quality_score'],
+                dict_data['calories'],
+                dict_data['proteins'],
+                dict_data['sodium'],
+                dict_data['fat']
+            )
+            context = dict_data.copy()
+            message = TryteString.from_unicode(data)
+            tx = ProposedTransaction(
+                address=Address(address),
+                message=message,
+                value=0
+            )
+            result = api.send_transfer(transfers=[tx])
+            dict_data['hashValue'] = result['bundle'].tail_transaction.hash
+            batch.hash = dict_data['hashValue']
+            batch.save()
+
+            dict_data['hashValue'] = str(dict_data['hashValue'])
+            dict_data['raw_material_id'] = dict_data['raw_material_id'].rawMaterial_name
+            dict_data['supplier_id'] = dict_data['supplier_id'].supplier_name
+            db = firestore.client()
+            db.collection(u'RawMaterialBatch').document(str(unique_batch_id)).set(dict_data)
+
+            dict_data['unique_id'] = unique_batch_id
+            return render(request, 'procure_success.html', context)
+
+        context = {
+            'rawMaterials': RawMaterials.objects.all(),
+            'suppliers': Suppliers.objects.all(),
         }
-        dict_data['quality_score'] = model.predict([[
-            dict_data['calories'],
-            dict_data['proteins'],
-            dict_data['fat'],
-            dict_data['sodium']
-        ]])[0].round(2)
-        batch = RawMaterialBatches(
-            rawMaterial_id=dict_data['raw_material_id'],
-            supplier=dict_data['supplier_id'],
-            units=dict_data['units'],
-            calories=dict_data['calories'],
-            sodium=dict_data['sodium'],
-            proteins=dict_data['proteins'],
-            fat=dict_data['fat'],
-            quality_score=dict_data['quality_score'],
-            hash=''
-        )
-        batch.save()
-        unique_batch_id = batch.uniqueBatch_id
-
-        rawMaterial_update = StoreInventory.objects.get(
-            rawMaterial_id=request.POST['rawMaterial_id'],
-            storeId=StoreDetails.objects.get(store_id='W')
-        )
-        rawMaterial_update.unitsAvailable += dict_data['units']
-        rawMaterial_update.save()
-
-        data = "%d;%s;%s;%s;%s;%s;%s;%s;%s" % (
-            unique_batch_id,
-            dict_data['raw_material_id'].rawMaterial_name,
-            dict_data['supplier_id'].supplier_name,
-            dict_data['units'],
-            dict_data['quality_score'],
-            dict_data['calories'],
-            dict_data['proteins'],
-            dict_data['sodium'],
-            dict_data['fat']
-        )
-        context = dict_data.copy()
-        message = TryteString.from_unicode(data)
-        tx = ProposedTransaction(
-            address=Address(address),
-            message=message,
-            value=0
-        )
-        result = api.send_transfer(transfers=[tx])
-        dict_data['hashValue'] = result['bundle'].tail_transaction.hash
-        batch.hash = dict_data['hashValue']
-        batch.save()
-
-        dict_data['hashValue'] = str(dict_data['hashValue'])
-        dict_data['raw_material_id'] = dict_data['raw_material_id'].rawMaterial_name
-        dict_data['supplier_id'] = dict_data['supplier_id'].supplier_name
-        db = firestore.client()
-        db.collection(u'RawMaterialBatch').document(str(unique_batch_id)).set(dict_data)
-
-        dict_data['unique_id'] = unique_batch_id
-        return render(request, 'procure_success.html', context)
-
-    context = {
-        'rawMaterials': RawMaterials.objects.all(),
-        'suppliers': Suppliers.objects.all(),
-    }
-    return render(request, 'procurement.html', context)
+        return render(request, 'procurement.html', context)
 
 
 @login_required
 def forecast(request):
-    context = {
-        'rawMaterials': RawMaterials.objects.all(),
-        'post': False,
-        'pageTitle': 'Forecast'
-    }
-    if request.method == "POST":
-        context['post'] = True
-        context['forecast'] = {}
-        rawMaterial = RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
-        context['pageTitle'] = rawMaterial.rawMaterial_name
-        forecastPeriod = int(request.POST['forecastPeriod'])
-        storesList = StoreDetails.objects.exclude(store_id='W')
-        for store in storesList:
+    if request.user.username == 'admin_ibm':
+        context = {
+            'rawMaterials': RawMaterials.objects.all(),
+            'post': False,
+            'pageTitle': 'Forecast'
+        }
+        if request.method == "POST":
+            context['post'] = True
+            context['forecast'] = {}
+            rawMaterial = RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id'])
+            context['pageTitle'] = rawMaterial.rawMaterial_name
+            forecastPeriod = int(request.POST['forecastPeriod'])
+            storesList = StoreDetails.objects.exclude(store_id='W')
+            for store in storesList:
+                try:
+                    model = tsModel(rawMaterial.rawMaterial_id, store.store_id, forecastPeriod)
+                    if len(TransactionHistory.objects.filter(storeId=store, rawMaterial_id=rawMaterial)) < 2:
+                        continue
+                    partForecast, fullForecast, yhat, labels = model.fb_prophet()
+                    context['forecast'][store] = {
+                        'partforecast': partForecast,
+                        'fullForecast': fullForecast,
+                        'yhat': yhat
+                    }
+                except RuntimeError:
+                    pass
             try:
-                model = tsModel(rawMaterial.rawMaterial_id, store.store_id, forecastPeriod)
-                if len(TransactionHistory.objects.filter(storeId=store, rawMaterial_id=rawMaterial)) < 2:
-                    continue
-                partForecast, fullForecast, yhat, labels = model.fb_prophet()
-                context['forecast'][store] = {
-                    'partforecast': partForecast,
-                    'fullForecast': fullForecast,
-                    'yhat': yhat
-                }
-            except RuntimeError:
+                context['labels'] = labels
+            except NameError:
                 pass
-        try:
-            context['labels'] = labels
-        except NameError:
-            pass
-    return render(request, 'forecastDetails.html', context)
+        return render(request, 'forecastDetails.html', context)
 
 
 class CheckAvailability(generics.ListCreateAPIView):
