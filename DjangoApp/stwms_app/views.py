@@ -293,16 +293,17 @@ def forecast(request):
                     model = tsModel(rawMaterial.rawMaterial_id, store.store_id, forecastPeriod)
                     if len(TransactionHistory.objects.filter(storeId=store, rawMaterial_id=rawMaterial)) < 2:
                         continue
-                    partForecast, fullForecast, yhat, labels = model.fb_prophet()
+                    forecast_day, forecast_hour, forecast_week, forecast_month = model.fb_prophet()
                     context['forecast'][store] = {
-                        'partforecast': partForecast,
-                        'fullForecast': fullForecast,
-                        'yhat': yhat
+                        'forecast_day': forecast_day[1],
+                        'forecast_hour': forecast_hour[1],
+                        'forecast_week': forecast_week[1],
+                        'forecast_month': forecast_month[1],
                     }
                 except RuntimeError:
                     pass
             try:
-                context['labels'] = labels
+                context['labels'] = [forecast_day[0], forecast_hour[0], forecast_week[0], forecast_month[0]]
             except NameError:
                 pass
         return render(request, 'forecastDetails.html', context)
