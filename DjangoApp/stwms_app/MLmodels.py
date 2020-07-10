@@ -1,9 +1,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 from fbprophet import Prophet
-from time import time
 from .models import TransactionHistory
-from multiprocessing import Process, Queue
 
 
 def post_data_clean(temp_df):
@@ -27,8 +25,6 @@ class TimeSeriesModel:
         self.df = ''
         self.prediction_size = future_period
         self.error_log = {}
-        self.queue = Queue()
-        self.fbP_model = Prophet(weekly_seasonality=True, daily_seasonality=True, yearly_seasonality=True)
         self.get_data(raw_material_id, store_id)
         self.pre_data_clean()
 
@@ -39,7 +35,7 @@ class TimeSeriesModel:
     def pre_data_clean(self, with_time=False):
         raw_df = self.df
         if with_time:
-            raw_df['dateTime'] = pd.to_datetime(raw_df['dateTime']).dt.tz_convert('Asia/Kolkata').dt.tz_localize(None)
+            raw_df['dateTime'] = pd.to_datetime(df['dateTime']).dt.tz_convert('Asia/Kolkata').dt.tz_localize(None)
         else:
             raw_df['dateTime'] = pd.to_datetime(raw_df['dateTime']).dt.date
         final_df = raw_df.drop(['transaction_id', 'rawMaterial_id', 'storeId'], axis=1)
@@ -53,56 +49,33 @@ class TimeSeriesModel:
         plt.ylabel('Quantity')
         plt.show()
 
-    def make_forecast(self, var_name, period):
-        temp_list = [var_name]
-        futureD = self.fbP_model.make_future_dataframe(periods=self.prediction_size, freq=period)
-        temp_list.append(self.fbP_model.predict(futureD)[-self.prediction_size:])
-        self.queue.put(temp_list)
-
     def fb_prophet(self, plot=False):
-        self.fbP_model.fit(self.df)
-
-        q = Queue()
+        fbP_model = Prophet(weekly_seasonality=True, daily_seasonality=True)
+        fbP_model.fit(self.df)
 
         # Day Forecast
-        day = Process(target=self.make_forecast, args=('forecast_day', 'D'))
+        futureD = fbP_model.make_future_dataframe(periods=self.prediction_size, freq="D")
+        forecast_day = fbP_model.predict(futureD)[-self.prediction_size:]
 
         # Hourly Forecast
-        hour = Process(target=self.make_forecast, args=('forecast_hour', 'H'))
+        futureH = fbP_model.make_future_dataframe(periods=self.prediction_size, freq='H')
+        forecast_hour = fbP_model.predict(futureH)[-self.prediction_size:]
 
         # Weekly Forecast
-        week = Process(target=self.make_forecast, args=('forecast_hour', 'W'))
-        
+        futureW = fbP_model.make_future_dataframe(periods=self.prediction_size, freq='W')
+        forecast_week = fbP_model.predict(futureW)[-self.prediction_size:]
+
         # Monthly Forecast
-        month = Process(target=self.make_forecast, args=('forecast_hour', 'M'))
-
-        start = time()
-        day.start()
-        month.start()
-        week.start()
-        hour.start()
-        
-        day.join()
-        month.join()
-        week.join()
-        hour.join()
-        end = time()
-        print(end - start)
-
-        forecasts = {}
-        for i in range(4):
-            temp_list = self.queue.get()
-            forecasts[temp_list[0]] = temp_list[1]
-
-        print(forecasts)
+        futureM = fbP_model.make_future_dataframe(periods=self.prediction_size, freq='M')
+        forecast_month = fbP_model.predict(futureM)[-self.prediction_size:]
 
         if plot:
-            self.fbP_model.plot_components(forecasts['forecast_day'])
+            fbP_model.plot_components(forecast_day)
             plt.show()
 
-        forecast_day = post_data_clean(forecasts['forecast_day'])
-        forecast_hour = post_data_clean(forecasts['forecast_hour'])
-        forecast_week = post_data_clean(forecasts['forecast_week'])
-        forecast_month = post_data_clean(forecasts['forecast_month'])
+        forecast_day = post_data_clean(forecast_day)
+        forecast_hour = post_data_clean(forecast_hour)
+        forecast_week = post_data_clean(forecast_week)
+        forecast_month = post_data_clean(forecast_month)
 
         return forecast_day, forecast_hour, forecast_week, forecast_month
