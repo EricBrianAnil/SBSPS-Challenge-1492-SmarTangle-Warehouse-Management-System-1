@@ -4,8 +4,13 @@ from fbprophet import Prophet
 from .models import TransactionHistory
 
 
-def post_data_clean(temp_df):
-    temp_df['ds'] = pd.to_datetime(temp_df['ds']).dt.strftime('%d %b')
+def post_data_clean(temp_df, periodicity='D'):
+    if periodicity == 'H':
+        temp_df['ds'] = pd.to_datetime(temp_df['ds']).dt.strftime('%-I %p %A %d')
+    elif periodicity == 'M':
+        temp_df['ds'] = pd.to_datetime(temp_df['ds']).dt.strftime('%b %Y')
+    else:
+        temp_df['ds'] = pd.to_datetime(temp_df['ds']).dt.strftime('%d %b')
     temp_df = temp_df.drop([
         'additive_terms', 'additive_terms_lower', 'additive_terms_upper',
         'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'
@@ -58,7 +63,7 @@ class TimeSeriesModel:
         forecast_day = fbP_model.predict(futureD)[-self.prediction_size:]
 
         # Hourly Forecast
-        futureH = fbP_model.make_future_dataframe(periods=self.prediction_size, freq='H')
+        futureH = fbP_model.make_future_dataframe(periods=self.prediction_size*12, freq='H')
         forecast_hour = fbP_model.predict(futureH)[-self.prediction_size:]
 
         # Weekly Forecast
@@ -74,8 +79,8 @@ class TimeSeriesModel:
             plt.show()
 
         forecast_day = post_data_clean(forecast_day)
-        forecast_hour = post_data_clean(forecast_hour)
+        forecast_hour = post_data_clean(forecast_hour, periodicity='H')
         forecast_week = post_data_clean(forecast_week)
-        forecast_month = post_data_clean(forecast_month)
+        forecast_month = post_data_clean(forecast_month, periodicity='M')
 
         return forecast_day, forecast_hour, forecast_week, forecast_month
