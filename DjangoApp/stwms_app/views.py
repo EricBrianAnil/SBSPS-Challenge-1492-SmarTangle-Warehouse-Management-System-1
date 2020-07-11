@@ -171,6 +171,18 @@ def w_manage(request):
                 rm_request.status = 'Rejected'
             rm_request.save()
 
+        suppliers = Suppliers.objects.all()
+        raw_materials = RawMaterials.objects.all()
+        suppliers_data = {}
+        for supplier in suppliers:
+            tmp_list = []
+            for raw_material in raw_materials:
+                rating = 0
+                for batch in RawMaterialBatches.objects.filter(rawMaterial_id=raw_material, supplier_id=supplier):
+                    rating += batch.quality_score
+                tmp_list.append(rating)
+            suppliers_data[supplier.supplier_name] = tmp_list[:]
+
         context = {
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),
@@ -179,7 +191,9 @@ def w_manage(request):
             'inventory': StoreInventory.objects,
             'trucks': TruckDetails.objects.all(),
             'logs': LogEntry.objects.all(),
-            'requestValidation': dict()
+            'requestValidation': dict(),
+            'rawMaterials': raw_materials,
+            'suppliers_data': suppliers_data
         }
 
         for rawMaterialRequest in RawMaterialRequest.objects.filter(status='Pending'):
