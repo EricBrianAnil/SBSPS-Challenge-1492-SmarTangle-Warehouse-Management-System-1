@@ -27,7 +27,7 @@ client = InfluxDBClient(url="https://us-central1-1.gcp.cloud2.influxdata.com", t
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 # Hornet Tangle
-api = Iota('https://nodes.devnet.iota.org:443', testnet=True)
+api = Iota('https://nodes.comnet.thetangle.org/')
 address = "ZLGVEQ9JUZZWCZXLWVNTHBDX9G9KZTJP9VEERIIFHY9SIQKYBVAHIMLHXPQVE9IXFDDXNHQINXJDRPFDXNYVAPLZAW"
 
 cred = credentials.Certificate('static/files/smartangle-firebase.json')
@@ -252,7 +252,7 @@ def procurement(request):
                 message=message,
                 value=0
             )
-            result = api.send_transfer(transfers=[tx])
+            result = api.send_transfer(transfers=[tx], min_weight_magnitude=10)
             dict_data['hashValue'] = result['bundle'].tail_transaction.hash
             batch.hash = dict_data['hashValue']
             batch.save()
@@ -264,6 +264,8 @@ def procurement(request):
             db.collection(u'RawMaterialBatch').document(str(unique_batch_id)).set(dict_data)
 
             dict_data['unique_id'] = unique_batch_id
+            context['unique_id'] = unique_batch_id
+            context['hash'] = batch.hash
             return render(request, 'procure_success.html', context)
 
         context = {
