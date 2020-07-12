@@ -186,9 +186,10 @@ def w_manage(request):
             tmp_list = []
             for raw_material in raw_materials:
                 rating = 0
-                for batch in RawMaterialBatches.objects.filter(rawMaterial_id=raw_material, supplier_id=supplier):
+                batches = RawMaterialBatches.objects.filter(rawMaterial_id=raw_material, supplier_id=supplier)
+                for batch in batches:
                     rating += batch.quality_score
-                tmp_list.append(rating)
+                tmp_list.append(rating/len(batches) if len(batches) != 0 else 0)
             suppliers_data[supplier.supplier_name] = tmp_list[:]
 
         context = {

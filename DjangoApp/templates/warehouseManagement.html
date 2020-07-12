@@ -17,20 +17,30 @@
                 suppliers_data.{{ key }}.push({{ i }});
             {% endfor %}
         {% endfor %}
+        var radarColors = [
+            'rgba(236,0,255,0.5)',
+            'rgba(217,9,30,0.5)',
+            'rgba(49,99,8,0.5)',
+            'rgba(255,251,0,0.5)',
+            'rgba(255,255,255,0.5)'
+        ]
+        var i = 0;
+        var j = 0;
+        var k = 0;
         var marksData = {
             labels: labels,
             datasets: [
                 {% for key, value in suppliers_data.items %}
                     {
                         label: '{{ key }}',
-                        backgroundColor: 'rgba(88, 208, 222,0.8)',
-                        borderColor: 'rgba(88, 208, 222,0.8)',
+                        backgroundColor: radarColors[i++],
+                        borderColor: radarColors[j++],
                         borderWidth: 0,
                         fill: true,
                         radius: 0,
                         pointRadius: 0,
                         pointBorderWidth: 0,
-                        pointBackgroundColor: 'rgba(88, 208, 222,0.8)',
+                        pointBackgroundColor: radarColors[k++],
                         pointHoverRadius: 10,
                         pointHitRadius: 5,
                         data: suppliers_data.{{ key }}
@@ -52,10 +62,17 @@
                     fontSize: 14
                 },
                 angleLines: {
+                    display: false,
                     color: '#e9ebf1'
                 },
                 gridLines: {
                     color: "#e9ebf1"
+                }
+            },
+            elements: {
+                lines: {
+                    tension: 0,
+                    borderWidth: 3
                 }
             },
             legend: false,
@@ -192,7 +209,7 @@
                                     </div>
                                 </div>
                                 <div class="wrapper">
-                                    <h4 class="card-title mb-0">Suppliers Quality Radar</h4>
+                                    <h3>Suppliers Quality Radar</h4>
                                     <p>Avg. Quality Score of each supplier based on the raw material supplied</p>
                                     <div class="mb-4" id="net-profit-legend">
                                         <div class="chartjs-legend">
