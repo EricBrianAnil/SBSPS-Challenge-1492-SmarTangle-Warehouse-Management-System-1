@@ -18,11 +18,18 @@
             {% endfor %}
         {% endfor %}
         var radarColors = [
-            'rgba(236,0,255,0.5)',
-            'rgba(217,9,30,0.5)',
-            'rgba(49,99,8,0.5)',
-            'rgba(255,251,0,0.5)',
-            'rgba(255,255,255,0.5)'
+            'rgba(1, 24, 65, 0.5)',
+            'rgba(217, 9, 30, 0.5)',
+            'rgba(49, 99, 8, 0.5)',
+            'rgba(255, 251, 0, 0.5)',
+            'rgba(255, 255, 255, 0.5)'
+        ]
+        var borderColors = [
+            'rgba(1, 24, 65, 1)',
+            'rgba(217, 9, 30, 1)',
+            'rgba(49, 99, 8, 1)',
+            'rgba(255, 251, 0, 1)',
+            'rgba(255, 255, 255, 1)'
         ]
         var i = 0;
         var j = 0;
@@ -34,8 +41,8 @@
                     {
                         label: '{{ key }}',
                         backgroundColor: radarColors[i++],
-                        borderColor: radarColors[j++],
-                        borderWidth: 0,
+                        borderColor: borderColors[j++],
+                        borderWidth: 3,
                         fill: true,
                         radius: 0,
                         pointRadius: 0,
@@ -67,12 +74,6 @@
                 },
                 gridLines: {
                     color: "#e9ebf1"
-                }
-            },
-            elements: {
-                lines: {
-                    tension: 0,
-                    borderWidth: 3
                 }
             },
             legend: false,
