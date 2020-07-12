@@ -53,7 +53,7 @@ class RawMaterialBatches(models.Model):
     hash = models.CharField(max_length=100)
 
     def __str__(self):
-        return ('%d : %s : %d : %s => %d')%(
+        return ('%d : %s : %d : %s => %4.2f')%(
             self.uniqueBatch_id,
             self.rawMaterial_id.rawMaterial_name,
             self.units,
