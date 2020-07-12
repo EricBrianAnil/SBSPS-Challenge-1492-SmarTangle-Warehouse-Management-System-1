@@ -103,7 +103,9 @@ def store_details(request):
         'items': items_data,
         'store': store_data,
         'shopMenu': store_data.storeManager == request.user,
-        'itemsList': itemsList
+        'itemsList': itemsList,
+        'backButton': True,
+        'backButtonLink': 'stores'
     }
     return render(request, 'storeDetails.html', context)
 
@@ -118,7 +120,9 @@ def rawmaterial_request(request):
             'items': StoreInventory.objects.exclude(storeId=store_id),
             'stores': StoreDetails.objects.exclude(store_id=store_id),
             'shopMenu': StoreDetails.objects.get(store_id=store_id).storeManager == request.user,
-            'rawMaterialList': RawMaterials.objects.all()
+            'rawMaterialList': RawMaterials.objects.all(),
+            'backButton': True,
+            'backButtonLink': 'rm_request'
         }
         return render(request, 'rawmaterial_request.html', context)
     elif request.method == "POST":
@@ -127,10 +131,14 @@ def rawmaterial_request(request):
             rawMaterial_id=RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
             fromStore_id=StoreDetails.objects.get(store_id=request.POST['from_store_id']),
             units=request.POST['units'],
-            status='Pending'
+            status='Pending',
         )
         raw_material_request.save()
-        return render(request, 'request_success.html', {'requestDetails': raw_material_request})
+        return render(request, 'request_success.html', {
+            'requestDetails': raw_material_request,
+            'backButton': True,
+            'backButtonLink': 'rm_request'
+        })
 
 
 @login_required
@@ -280,6 +288,8 @@ def procurement(request):
             dict_data['unique_id'] = unique_batch_id
             context['unique_id'] = unique_batch_id
             context['hash'] = batch.hash
+            context['backButton'] = True
+            context['backButtonLink'] = 'procurement'
             return render(request, 'procure_success.html', context)
 
         context = {
@@ -322,6 +332,8 @@ def forecast(request):
                 context['labels'] = [forecast_day[0], forecast_hour[0], forecast_week[0], forecast_month[0]]
             except NameError:
                 pass
+            context['backButton'] = True
+            context['backButtonLink'] = 'forecast'
         return render(request, 'forecastDetails.html', context)
 
 
