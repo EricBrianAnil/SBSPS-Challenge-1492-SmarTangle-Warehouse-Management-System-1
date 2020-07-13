@@ -63,8 +63,8 @@ class TimeSeriesModel:
         forecast_day = fbP_model.predict(futureD)[-self.prediction_size:]
 
         # Hourly Forecast
-        futureH = fbP_model.make_future_dataframe(periods=self.prediction_size*12, freq='H')
-        forecast_hour = fbP_model.predict(futureH)[-self.prediction_size:]
+        futureH = fbP_model.make_future_dataframe(periods=self.prediction_size * 12, freq='H')
+        forecast_hour = fbP_model.predict(futureH)[-self.prediction_size * 12:]
 
         # Weekly Forecast
         futureW = fbP_model.make_future_dataframe(periods=self.prediction_size, freq='W')
