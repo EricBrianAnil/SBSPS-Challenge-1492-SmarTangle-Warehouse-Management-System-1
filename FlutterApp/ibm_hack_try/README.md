@@ -2,9 +2,11 @@
 
 The mobile app provides a comprehensive way to integrate the needs of the customer as well as the warehouse by providing a Utility list available to customers who signup with their credentials.
 
+![Preview](https://github.com/rahulsunil2/smarTangle/blob/master/FlutterApp/ibm_hack_try/images/mobile_screenshots.jpeg)
+
 ## Features
 
-The list consists of following utilities to the users : 
+The app includes following features to the users : 
 
 1 - Material Catalog and Availability Status :  
   - The customer gets access to the general material details of all the raw materials and food items provided by the smarTangle warehouse. Users will be able to view the live stock of each material provided by the stores. It shows the material, a list of the stores under the smarTangle Warehouse, the status of the availability of the materials, i.e, if the material is available in the particular store or not and the units  available.
@@ -21,4 +23,3 @@ The list consists of following utilities to the users :
 5 - QR Code Scanner :
   - Each raw material produced by the warehouse comes with a material-specific batch QR (apart from the store specific barcode) that could reference trackable and crucial information regarding the quality and journey of the material which is primarily stored in the tangle network. Necessary information from this such as the date of packaging, shelf life, nutritional details, store details, batch ID, etc are made available to the user via scanning of the QR code.
   
-![Preview](https://github.com/rahulsunil2/smarTangle/blob/master/FlutterApp/ibm_hack_try/images/mobile_screenshots.jpeg)
