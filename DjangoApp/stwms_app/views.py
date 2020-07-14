@@ -208,7 +208,8 @@ def w_manage(request):
             'logs': LogEntry.objects.all(),
             'requestValidation': dict(),
             'rawMaterials': raw_materials,
-            'suppliers_data': suppliers_data
+            'suppliers_data': suppliers_data,
+            'stackedBarGraphData': stackedBarGraphData
         }
 
         for rawMaterialRequest in RawMaterialRequest.objects.filter(status='Pending'):
