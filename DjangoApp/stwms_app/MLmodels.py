@@ -74,8 +74,8 @@ class TimeSeriesModel:
         futureM = fbP_model.make_future_dataframe(periods=self.prediction_size, freq='M')
         forecast_month = fbP_model.predict(futureM)[-self.prediction_size:]
 
+        fbP_model.plot_components(forecast_day).savefig('static/files/forecast.png')
         if plot:
-            fbP_model.plot_components(forecast_day)
             plt.show()
 
         forecast_day = post_data_clean(forecast_day)

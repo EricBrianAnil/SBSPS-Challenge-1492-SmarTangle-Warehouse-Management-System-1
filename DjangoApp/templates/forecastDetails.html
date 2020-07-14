@@ -305,6 +305,18 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card" id="card-store">
+                        <div class="card-body">
+                            <button class="collapsible-store">Forecast Overview</button>
+                            <div class="content" style="background-color: white">
+                                <img src="{% static '/files/forecast.png' %}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 {% for key, value in forecast.items %}
                     <div class="col-lg-12 grid-margin stretch-card" style="background-color: #3A57F1">
                         <div class="card" id="card-store">
