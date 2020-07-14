@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.models import LogEntry
 from rest_framework import viewsets, generics, filters
 from rest_framework.permissions import AllowAny
-import joblib
+from joblib import load
 from .serializers import UserSerializer, MaterialAvailability
 from .forms import SignUpForm
 from .models import StoreDetails, StoreInventory, RawMaterials, TransactionHistory, RawMaterialRequest, Suppliers, \
@@ -68,6 +68,7 @@ def stores(request):
     return render(request, 'stores.html', context_stores)
 
 
+# TODO: Add Sales Graph
 @login_required
 def store_details(request):
     if request.method == "POST":
@@ -96,6 +97,7 @@ def store_details(request):
     else:
         store_id = request.GET['store_id']
 
+    transactions = TransactionHistory.objects.filter(storeId=store_id)
     items_data = StoreInventory.objects.filter(storeId=store_id)
     store_data = StoreDetails.objects.get(store_id=store_id)
     itemsList = [i.rawMaterial_id.rawMaterial_name for i in items_data]
@@ -105,7 +107,8 @@ def store_details(request):
         'shopMenu': store_data.storeManager == request.user,
         'itemsList': itemsList,
         'backButton': True,
-        'backButtonLink': 'stores'
+        'backButtonLink': 'stores',
+        'transactions': transactions
     }
     return render(request, 'storeDetails.html', context)
 
@@ -192,6 +195,9 @@ def w_manage(request):
                 tmp_list.append(rating/len(batches) if len(batches) != 0 else 0)
             suppliers_data[supplier.supplier_name] = tmp_list[:]
 
+        stackedBarGraphData = {}
+        for store in StoreDetails.objects.exclude(store_id='W'):
+            stackedBarGraphData[store] = [i.unitsSold for i in StoreInventory.objects.filter(storeId=store)]
         context = {
             'warehouseItems': StoreInventory.objects.filter(storeId='W'),
             'storeItems': StoreInventory.objects.exclude(storeId='W'),
@@ -202,7 +208,8 @@ def w_manage(request):
             'logs': LogEntry.objects.all(),
             'requestValidation': dict(),
             'rawMaterials': raw_materials,
-            'suppliers_data': suppliers_data
+            'suppliers_data': suppliers_data,
+            'stackedBarGraphData': stackedBarGraphData
         }
 
         for rawMaterialRequest in RawMaterialRequest.objects.filter(status='Pending'):
@@ -220,7 +227,7 @@ def w_manage(request):
 def procurement(request):
     if request.user.username == 'admin_ibm':
         if request.method == "POST":
-            model = joblib.load('static/files/model.sav')
+            model = load('static/files/model.sav')
             dict_data = {
                 'raw_material_id': RawMaterials.objects.get(rawMaterial_id=request.POST['rawMaterial_id']),
                 'supplier_id': Suppliers.objects.get(supplier_id=request.POST['supplier_id']),
