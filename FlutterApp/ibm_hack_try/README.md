@@ -21,3 +21,4 @@ The list consists of following utilities to the users :
 5 - QR Code Scanner :
   - Each raw material produced by the warehouse comes with a material-specific batch QR (apart from the store specific barcode) that could reference trackable and crucial information regarding the quality and journey of the material which is primarily stored in the tangle network. Necessary information from this such as the date of packaging, shelf life, nutritional details, store details, batch ID, etc are made available to the user via scanning of the QR code.
   
+![Preview](https://github.com/rahulsunil2/smarTangle/blob/master/FlutterApp/ibm_hack_try/images/mobile_screenshots.jpeg)
