@@ -1,4 +1,4 @@
-# smarTangle Customer Mobile App
+# SmarTangle Customer Mobile App
 
 The mobile app provides a comprehensive way to integrate the needs of the customer as well as the warehouse by providing a Utility list available to customers who signup with their credentials.
 
@@ -12,14 +12,14 @@ The app includes following features to the users :
   - The customer gets access to the general material details of all the raw materials and food items provided by the smarTangle warehouse. Users will be able to view the live stock of each material provided by the stores. It shows the material, a list of the stores under the smarTangle Warehouse, the status of the availability of the materials, i.e, if the material is available in the particular store or not and the units  available.
   
 2 - Nearby Stores :  
-  - This enables the user to find the nearest store under the smarTangle warehouse when provided with their location. It provides the map showcasing the route from their location to the nearest store.
+  - This enables the user to find the nearest store under the smarTangle warehouse when provided with their location. 
   
 3 - Shopping Cart : 
-  - This provides the user with the benefit of adding their potential shopping list to a personalised cart. This allows them to keep a tab of what they would want to purchase based on the catalog as well as the expected total price.
+  - This provides the user with the benefit of adding their potential shopping list to a personalised cart. Th
   
 4 - Request Materials : 
   - This allows the user to request specific food materials based on their location in a scenario where the material is a necessity and is currently not available in the nearest store under the smarTangle warehouse. It also allows the user to request for materials that the store was not providing previously. This helps to prioritize the needs of each store by providing more data regarding its needs.
   
 5 - QR Code Scanner :
-  - Each raw material produced by the warehouse comes with a material-specific batch QR (apart from the store specific barcode) that could reference trackable and crucial information regarding the quality and journey of the material which is primarily stored in the tangle network. Necessary information from this such as the date of packaging, shelf life, nutritional details, store details, batch ID, etc are made available to the user via scanning of the QR code.
+  - Each raw material produced by the warehouse comes with a material-specific batch QR Necessary information from this such as the quality score, date of packaging, shelf life, nutritional details, store details, batch ID, etc are made available to the user via scanning of the QR code.
   
