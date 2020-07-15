@@ -1,4 +1,4 @@
-# SmarTangle Customer Mobile App
+# smarTangle Customer Mobile App
 
 The mobile app provides a comprehensive way to integrate the needs of the customer as well as the warehouse by providing a Utility list available to customers who signup with their credentials.
 
