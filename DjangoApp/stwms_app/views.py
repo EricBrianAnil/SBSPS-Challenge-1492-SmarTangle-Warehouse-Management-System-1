@@ -142,6 +142,8 @@ def rawmaterial_request(request):
             'backButton': True,
             'backButtonLink': 'rm_request'
         })
+    else:
+        return render(request, '404.html')
 
 
 @login_required
@@ -305,6 +307,7 @@ def procurement(request):
             'suppliers': Suppliers.objects.all(),
         }
         return render(request, 'procurement.html', context)
+    return render(request, '404.html')
 
 
 @login_required
@@ -343,6 +346,7 @@ def forecast(request):
             context['backButton'] = True
             context['backButtonLink'] = 'forecast'
         return render(request, 'forecastDetails.html', context)
+    return render(request, '404.html')
 
 
 class CheckAvailability(generics.ListCreateAPIView):
