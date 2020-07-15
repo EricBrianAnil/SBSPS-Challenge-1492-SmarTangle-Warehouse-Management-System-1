@@ -2,6 +2,8 @@
 A **Tangle** network based SaaS Warehouse Optimization System for a Food Warehouse that covers tracking of the movement, quality and shelf life of the product and also predicts the requirement of raw materials  based on daily demands for a long period using the **FbProphet** Time Series forecasting model. The project consists of a **Django-based web application** as well as a **Flutter based mobile application.**
 ### [Check out the Project demo video here!](https://youtu.be/RXRktCTKABk)
 
+[Check Our Website out :)](http://ec2-3-211-32-9.compute-1.amazonaws.com/accounts/log)
+
 ![](/Images/poster1.png)
 
 # Technical Stack & Architectural Flow 
