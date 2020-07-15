@@ -1,4 +1,5 @@
 # smarTangle Django Web-App
+The Web application serves as the primary solution to the problem of warehouse optimization and management enabling secure procurement, storage and forecasting of raw materials digitally.
 
 ![](/Images/1.png)
 
