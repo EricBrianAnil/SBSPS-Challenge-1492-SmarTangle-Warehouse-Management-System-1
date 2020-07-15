@@ -2,7 +2,7 @@
 A **Tangle** network based SaaS Warehouse Optimization System for a Food Warehouse that covers tracking of the movement, quality and shelf life of the product and also predicts the requirement of raw materials  based on daily demands for a long period using the **FbProphet** Time Series forecasting model. The project consists of a **Django-based web application** as well as a **Flutter based mobile application.**
 ### [Check out the Project demo video here!](https://youtu.be/RXRktCTKABk)
 
-[**Check Our Website out here :)**](http://ec2-3-211-32-9.compute-1.amazonaws.com/accounts/log)
+[**Check Our Website out here :)**](http://smartangle.ddns.net/)
 
 ![](/Images/poster1.png)
 
@@ -23,7 +23,8 @@ The technological stack that has been used for the component-wise design and imp
   * [Django Framework](https://www.djangoproject.com/) *(Back-End)*
   * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML), [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS), [JS](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [Bootstrap](https://getbootstrap.com/)  *(Front-End)*
   * [Docker](https://www.docker.com/) & [Kubernetes](https://kubernetes.io/) *(Containerization)*
-  * [Amazon AWS](https://aws.amazon.com/elasticbeanstalk/) *(Deployment)*
+  * [IBM Cloud](https://www.ibm.com/cloud/cloud-foundry) *(Deployment)*
+  * [Amazon AWS](https://aws.amazon.com/ec2/) *(Deployment)*
   
 * **Customer-End Mobile Application :**
   * [Flutter](https://flutter.dev/) *(Android Development SDK using Dart)*
