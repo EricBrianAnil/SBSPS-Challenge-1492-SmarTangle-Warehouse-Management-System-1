@@ -1,5 +1,5 @@
-# SBSPS-Challenge-1492-SmarTangle-Warehouse-Management-System
-A **Tangle** network based SaaS Warehouse Optimization System for a Food Warehouse that covers tracking of the movement, quality and shelf life of the product and also predicts the requirement of raw materials  based on daily demands for a long period using the **FbProphet** Time Series forecasting model. 
+# SBSPS-Challenge-1492-SmarTangle-Warehouse-Management-System | Team hackOverflow
+A **Tangle** network based SaaS Warehouse Optimization System for a Food Warehouse that covers tracking of the movement, quality and shelf life of the product and also predicts the requirement of raw materials  based on daily demands for a long period using the **FbProphet** Time Series forecasting model. The project consists of a **Django-based web application** as well as a **Flutter based mobile application.**
 ### [Check out the Project demo video here!](https://youtu.be/RXRktCTKABk)
 
 ![](/Images/poster1.png)
@@ -33,7 +33,11 @@ The technological stack that has been used for the component-wise design and imp
   * [SQLite](https://www.sqlite.org/index.html) *(SQL : Store Inventory & Raw Material information)*
 
 
-
+# What It Does?
 ![](/Images/1.png)
-![](/Images/2.png)
-![](/Images/3.png)
+In a nutshell, our solution proposal - smarTangle  is a novel system which integrates the use of the **IOTA based Tangle network** to set its base as a Warehouse Optimization and Management system for a food warehouse that produces raw materials. It consists of a **Django based web application** for the usage of the warehouse alongside a **Flutter based mobile application** for the customers. 
+
+![](/Images/mobile.png)
+The web app extensively works to forecast the raw material requirements of its subsidiary stores in a span of over 10 weeks , which helps prioritize the warehouse inventory of raw materials to prevent food wastage and reduce food insecurity. On the other hand the mobile app wraps this system by providing crucial information regarding the raw materials and its journey securely till it has reached the customer so as to increase the authenticity of the food network while working to reduce the effects of panic buying.
+
+<p align="center">A project by Team hackOverflow.</p>
