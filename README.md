@@ -36,4 +36,6 @@ The technological stack that has been used for the component-wise design and imp
 # What Does It Do?
 In a nutshell, our solution proposal - smarTangle  is a novel system which integrates the use of the **IOTA based Tangle network** to set its base as a Warehouse Optimization and Management system for a food warehouse that produces raw materials. It consists of a **Django based web application** for the usage of the warehouse alongside a **Flutter based mobile application** for the customers. The web app extensively works to forecast the raw material requirements of its subsidiary stores in a span of over 10 weeks , which helps prioritize the warehouse inventory of raw materials to prevent food wastage and reduce food insecurity. On the other hand the mobile app wraps this system by providing crucial information regarding the raw materials and its journey securely till it has reached the customer so as to increase the authenticity of the food network while working to reduce the effects of panic buying.
 
+![](/Images/Web - 404.png)
+
 <p align="center">A project by Team hackOverflow.</p>
