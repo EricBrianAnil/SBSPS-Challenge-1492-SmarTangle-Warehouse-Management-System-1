@@ -20,4 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("stwms_app.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
-] 
+]
+
+handler404 = 'stwms_app.views.handler404'
+handler500 = 'stwms_app.views.handler500'
