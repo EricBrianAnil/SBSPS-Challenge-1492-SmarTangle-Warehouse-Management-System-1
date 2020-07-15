@@ -23,4 +23,4 @@ urlpatterns = [
 ]
 
 handler404 = 'stwms_app.views.handler404'
-handler500 = 'stwms_app.views.handler500'
+handler500 = 'stwms_app.views.handler404'
